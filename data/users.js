@@ -142,7 +142,8 @@ const checkPassword = async function checkPassword(username, password) {
     console.log(username);
     console.log(password);
     try {
-        var user = await getExistingUser(username);
+       // var user = await getExistingUser(username);
+       var user = await getUser(username);
 
     } catch (error) {
         console.log("error");
@@ -169,7 +170,7 @@ module.exports = {
     getAllUsers,
     getUser,
     findExistingUser,
-    getExistingUser,
+    //getExistingUser,
     updateUser,
     removeUser,
     checkPassword
