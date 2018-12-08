@@ -23,18 +23,18 @@ router.post("/", async(req,res) =>{
     try{
         userCreated = await userData.CreateUser(username,password,gender,email,dob,phone);
     }catch(e){
-        error_message = "Please dont leave empty blank"
+        error_message = "Please dont leave empty blank";
     }
 
 
 
-    if(username ===userData.username){
+    if(username === userData.username){
         var data={
             error:error_message
         }
         res.render("login", data);
     }else{
-        res.redirect("login")
+        res.redirect("login");
     }
 })
 
