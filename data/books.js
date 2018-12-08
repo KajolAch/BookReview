@@ -1,7 +1,7 @@
 const mogodb = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
 const books = mongoCollections.books;
-const uuid = require("uuid/v4")
+const uuid = require("uuid/v4");
 
 const listOfBooks = [
     {

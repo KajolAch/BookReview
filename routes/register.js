@@ -1,8 +1,8 @@
-const express = require("express")
+const express = require("express");
 const router = express.Router();
 
 // call from user data
-const userData = require("../data/user")
+const userData = require("../data/users");
 
 router.get("/", async(req,res) => {
     res.render("register");
@@ -19,7 +19,7 @@ router.post("/", async(req,res) =>{
     var phone = req.body.phone;
 
     //check status
-    var error_message = "Account already exists."
+    var error_message = "Account already exists.";
 
     try{
         userCreated = await userData.CreateUser(username,password,gender,email,dob,phone);

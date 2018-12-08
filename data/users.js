@@ -8,7 +8,7 @@ const saltRounds = 16;
 const createUser = async function createUser(username, password, name,birth, email,phone,gender) {
     console.log(password);
     if (typeof password !== "string") throw "please provide a password!";
-    let hash = await bcrypt.hash(password, saltRounds)
+    let hash = await bcrypt.hash(password, saltRounds);
     console.log(hash);
     try {
         let ID = uuid();
@@ -65,7 +65,7 @@ const getUser = async function getUser(id) {
         const find_user = await userCollection.findOne({ _id: id });
 
         if (find_user === null)
-            throw "There is not have this user"
+            throw "There is not have this user";
 
         return find_user;
     }
@@ -93,7 +93,7 @@ const findExistingUser = async function findExistingUser(username) {
 const updateUser = async function updateUser(userId, input, bookname) {
 
     if (!userId)
-        throw "Please provide a userid"
+        throw "Please provide a userid";
 
     try {
         const userCollection = await users();
@@ -116,7 +116,7 @@ const updateUser = async function updateUser(userId, input, bookname) {
 const removeUser = async function removeUser(id) {
 
     if (!id)
-        throw "Please provide a userid"
+        throw "Please provide a userid";
 
     try {
 
@@ -137,7 +137,7 @@ const removeUser = async function removeUser(id) {
 
 const checkPassword = async function checkPassword(username, password) {
     console.log("d0");
-    let hash = await bcrypt.hash(password, saltRounds)
+    let hash = await bcrypt.hash(password, saltRounds);
     console.log(hash);
     console.log(username);
     console.log(password);
