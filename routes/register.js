@@ -10,6 +10,7 @@ router.get("/", async(req,res) => {
 
 router.post("/", async(req,res) =>{
     //get user info
+    // I think so here name should also be added...as for registration page its needed
     var username = req.body.username;
     var password = req.body.password;
     var gender = req.body.gender;
