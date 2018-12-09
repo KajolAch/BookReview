@@ -13,6 +13,7 @@ router.post("/", async(req,res) =>{
     // I think so here name should also be added...as for registration page its needed
     var username = req.body.username;
     var password = req.body.password;
+    var name = req.body.name;
     var gender = req.body.gender;
     var email = req.body.email;
     var dob = req.body.dob;
