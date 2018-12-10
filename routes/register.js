@@ -16,16 +16,17 @@ router.post("/", async(req,res) =>{
     let RegisterData = req.body;
     var username = RegisterData.username;
     var password = RegisterData.password;
+    var name = RegisterData.fullname;
     var gender = req.body.gender;
     var email = req.body.email;
-    var dob = req.body.dob;
+    var birth = req.body.date;
     var phone = req.body.phone;
 
     //check status
     var error_message = "Account already exists.";
-
     try{
-        userCreated = await userData.createUser(username,password,gender,email,dob,phone);
+                                                
+        userCreated = await userData.createUser(username,password,name,birth,email,phone,gender);
     }catch(e){
         error_message = "Please dont leave empty blank";
     }
@@ -36,9 +37,9 @@ router.post("/", async(req,res) =>{
         var data={
             error:error_message
         }
-        res.render("login", data);
+        res.render("pages/search");
     }else{
-        res.redirect("login");
+        res.redirect("search");
     }
 })
 

@@ -6,7 +6,7 @@ const saltRounds = 16;
 
 
 const createUser = async function createUser(username, password, name,birth, email,phone,gender) {
-    console.log(password);
+   // console.log(password);
     if (typeof password !== "string") throw "please provide a password!";
     let hash = await bcrypt.hash(password, saltRounds);
     console.log(hash);
@@ -22,8 +22,8 @@ const createUser = async function createUser(username, password, name,birth, ema
             email: email,
             phone: phone,
         };
-
-        const userCollection = await users();
+        console.log(newInfo);
+       const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newInfo);
 
         if (insertInfo.insertedCount === 0)
