@@ -7,19 +7,28 @@ const settings = {
 	}
 };
 
-let fullMongoUrl = settings.mongoConfig.serverUrl + settings.mongoConfig.database;
+const mongoConfig = settings.mongoConfig;
+
 let _connection = undefined;
+let _db = undefined;
 
+// let connectDb = () => {
+// 	if (!_connection) {
+// 		_connection = MongoClient.connect(fullMongoUrl,{ useNewUrlParser: true })
+// 			.then(db => {
+// 				return db;
+// 			});
+// 	}
 
-let connectDb = () => {
+// 	return _connection;
+// };
+
+//module.exports = connectDb;
+module.exports = async () => {
 	if (!_connection) {
-		_connection = MongoClient.connect(fullMongoUrl)
-			.then(db => {
-				return db;
-			});
+	  _connection = await MongoClient.connect(mongoConfig.serverUrl);
+	  _db = await _connection.db(mongoConfig.database);
 	}
-
-	return _connection;
-};
-
-module.exports = connectDb;
+  
+	return _db;
+  };
