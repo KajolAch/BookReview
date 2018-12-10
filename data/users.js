@@ -5,8 +5,9 @@ const bcrypt = require("bcrypt");
 const saltRounds = 16;
 
 
-const createUser = async function createUser(username, password, name,birth, email,phone,gender) {
-    console.log(password);
+const createUser = async function createUser(username, password, name, gender, email, phone) {
+    console.log('came in createuser function');
+    //console.log(password);
     if (typeof password !== "string") throw "please provide a password!";
     let hash = await bcrypt.hash(password, saltRounds);
     console.log(hash);
@@ -22,7 +23,7 @@ const createUser = async function createUser(username, password, name,birth, ema
             email: email,
             phone: phone,
         };
-
+        
         const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newInfo);
 

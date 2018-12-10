@@ -4,7 +4,7 @@ const router = express.Router();
 // call from user data
 const userData = require("../data/users");
 
-router.get("/", async(req,res) => {
+router.get("/", (req,res) => {
     res.render("register");
 });
 
@@ -13,16 +13,18 @@ router.post("/", async(req,res) =>{
     // I think so here name should also be added...as for registration page its needed
     var username = req.body.username;
     var password = req.body.password;
+    var name = req.body.name;
     var gender = req.body.gender;
     var email = req.body.email;
-    var dob = req.body.dob;
     var phone = req.body.phone;
+
+    //here we need to check validation for all starting from username till phone.
 
     //check status
     var error_message = "Account already exists.";
 
     try{
-        userCreated = await userData.CreateUser(username,password,gender,email,dob,phone);
+        userCreated = await userData.createUser(username,password,name,gender,email,phone);
     }catch(e){
         error_message = "Please dont leave empty blank";
     }
