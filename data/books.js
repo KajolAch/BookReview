@@ -129,13 +129,13 @@ async function addBooks(book) {
     }
 }
 
-async function loadAllBooks() {
-    for (var i = 0; i < bookList.length; i++) {
-        addbook(bookList[i]);
+// async function loadAllBooks() {
+//     for (var i = 0; i < bookList.length; i++) {
+//         addbook(bookList[i]);
 
-    }
-    return true;
-}
+//     }
+//     return true;
+// }
 
 async function addComments(book, text) {
     if (typeof text !== "string") throw "Your should write a comment";
@@ -167,7 +167,7 @@ async function updateRating(book, score) {
     return rating;
 }
 
-loadAllbook();
+//loadAllBooks();
 
 module.exports = {
     getBooksByName,
@@ -175,7 +175,7 @@ module.exports = {
     addComments,
     addBooks,
     updateRating,
-    loadAllBooks,
+    // loadAllBooks,
     searchBooks,
     listOfBooks
 };

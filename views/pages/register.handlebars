@@ -1,0 +1,32 @@
+<h2>User Registration</h2>
+<form action="/register" id="RegistrationForm" method="POST">
+    <div class="form-group">
+    <label for="inputUsername" >  Username:
+        </label><br>
+    <input type = "text" id="inputUsername" name = "username" placeholder="Enter User Name"><br>
+    <label for="inputPassword">
+    Password:</label><br>
+    <input type = "password" id="inputPassword" name = "password" placeholder="Enter Password"><br>
+    <label for="InputName">
+    Name:</label><br>
+    <input type = "text" id="InputName" name = "fullname" placeholder="Enter Full Name"><br>
+    <label for="inputGender">
+    Gender:</label><br>
+    <input type = "radio" id="inputGender" name = "gender" value = "male">Male<br>
+    <input type = "radio" id="inputGender2" name = "gender" value = "female">Female<br>
+    <input type = "radio" id="inputGender3" name = "gender" value = "male">Other<br>
+    <br>
+    <label for="inputEmail">
+    Email:</label><br>
+    <input type = "email" id="inputEmail" name = "email" placeholder="Enter Email"><br>
+    <label for="inputDOB">
+    Date of Birth:</label><br>
+    <input type = "date" id="inputDOB" name = "date"><br>
+    <label for="inputPhone">
+    Phone:</label><br>
+    <input type = "number" id="inputPhone" name = "phone" placeholder="Enter Phone number"><br>
+    <br>
+    <input type = "submit" class="btn btn-primary" value="Register">
+    </div>
+</form>
+{{!-- Error handling --}}

@@ -3,9 +3,9 @@ const router = express.Router();
 
 
 //bring up the data from mongodb or api
-const bookData = require("___path");
+const bookData = require("../data/books");
 
-router.get("/", async(req,res) =>{
+router.get("/book", async(req,res) =>{
 
     //represent the bookinfo  && check if it in db
     var booinfo = await bookData.getBookByName(bookname);

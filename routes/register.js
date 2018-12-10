@@ -1,18 +1,21 @@
 const express = require("express");
 const router = express.Router();
-
 // call from user data
 const userData = require("../data/users");
 
 router.get("/", async(req,res) => {
-    res.render("register");
+    res.render("pages/register");
 });
 
 router.post("/", async(req,res) =>{
     //get user info
     // I think so here name should also be added...as for registration page its needed
-    var username = req.body.username;
-    var password = req.body.password;
+    
+    console.log("In post method");
+    console.log(req.body);
+    let RegisterData = req.body;
+    var username = RegisterData.username;
+    var password = RegisterData.password;
     var gender = req.body.gender;
     var email = req.body.email;
     var dob = req.body.dob;
@@ -22,7 +25,7 @@ router.post("/", async(req,res) =>{
     var error_message = "Account already exists.";
 
     try{
-        userCreated = await userData.CreateUser(username,password,gender,email,dob,phone);
+        userCreated = await userData.createUser(username,password,gender,email,dob,phone);
     }catch(e){
         error_message = "Please dont leave empty blank";
     }
