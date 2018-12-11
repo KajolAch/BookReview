@@ -23,6 +23,10 @@ async function checkstatus(username,password){
     }
 }
 
+// router.get("/", async(req,res) => {
+//     res.render('/pages/login');
+// });
+
 router.post("/", async(req,res) => {
     //request username & password to login
     var username = req.body.username;
@@ -32,7 +36,7 @@ router.post("/", async(req,res) => {
     //if user input wrong message
     var error_message = "";
     try{
-        authenticalted = await checkstatus(username,password)
+        authenticated = await checkstatus(username,password)
     }catch(e){
         error_message =" Incorrect username/password, please try again!";
     }
@@ -43,7 +47,7 @@ router.post("/", async(req,res) => {
         res.cookie("AuthCookie", userInfo.uuid());
 
         //once user login, turn page to w.e page we are going to give
-        res.redirect("/")
+        res.redirect("/bookinfo");
     }
     //otherwise  render to login page && display error
     else{

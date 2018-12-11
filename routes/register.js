@@ -37,7 +37,7 @@ router.post("/", async(req,res) =>{
         var data={
             error:error_message
         }
-        res.render("pages/search");
+        res.render("pages/register",data);
     }else{
         res.redirect("search");
     }
