@@ -1,30 +1,39 @@
 
 <div class='bookinfo'>
+    <input type="hidden" value={{bookId}} id="bookId">
  <h1>Book Info</h1>
     <div class = 'bookname'>
        
     </div>
+<script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+    <script type="text/javascript">
+      google.books.load();
 
+      function initialize() {
+        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+        
+        viewer.load('{{bookId}}');
+        books.volume.get('{{bookId}}')
+      }
 
-    <div class = 'bookimg'>
+      google.books.setOnLoadCallback(initialize);
+    </script>
+     
+    <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
+  
+    {{!-- <div class = 'bookimg'>
         <p>here add an image</p>
         <!-- here add book img  in the div if possablee -->
-    </div>
-
-
-    <div class='bookinformation'>
-        <p>add more feature</p>
-        <!-- add button(like), book rating, -->
-    </div>
+    </div> --}}
 
    <div class = 'comment'>
         <div class = 'comment_dashboard'>
             <form>
-                <textarea class='input' placeholder='Comment'></textarea>
+                <textarea class='input' placeholder='Comment'></textarea><br>
+                <input type="number" placeholder="Rating out of 5">
             </form>
-            <button class = 'submit' type = 'button'>submit</button>
+            <button class = 'submit' type = 'button'>Submit</button>
         </div>
     </div> 
-
 </div>
 

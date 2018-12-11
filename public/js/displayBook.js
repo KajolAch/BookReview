@@ -20,18 +20,24 @@
                       var author='';
                       var img='';
                       
-                     $.get("https://www.googleapis.com/books/v1/volumes?q="+ BookName,function(response){
+                     $.get("https://www.googleapis.com/books/v1/volumes?q="+ BookName+"&filter=partial",function(response){
                         console.log(response);
                         for(i=0;i<response.items.length;i++){
                             console.log(response.items[i].volumeInfo.title);
-                           title=$('<h5>'+response.items[i].volumeInfo.title + '</h5>');
-                           author=$('<h5>'+response.items[i].volumeInfo.authors + '</h5>');
-                           img=$('<img src='+response.items[i].volumeInfo.imageLinks.smallThumbnail +'></img>');
-                          // let listItem=title;
+                           title=$('<h5 id="title">'+response.items[i].volumeInfo.title + '</h5>');
+                           author=$('<h5 id="authors">'+response.items[i].volumeInfo.authors + '</h5>');
+                           if(response.items[i].volumeInfo.hasOwnProperty('imageLinks')){
+                           img=$('<img src='+response.items[i].volumeInfo.imageLinks.smallThumbnail +'></img><br>');
+                            }
+                           link=$('<a href="/bookinfo/'+response.items[i].id +'">More Details</a>')
+                             // let listItem=title;
                            //$("#BookList").append(listItem);
                            title.appendTo("#BookList");
                            author.appendTo("#BookList");
-                           img.appendTo("#BookList");
+                           if(response.items[i].volumeInfo.hasOwnProperty('imageLinks')){
+                            img.appendTo("#BookList");
+                           }
+                           link.appendTo("#BookList");
                         }  
                      });
                      
@@ -48,4 +54,3 @@
       });
     }
   })();
-  

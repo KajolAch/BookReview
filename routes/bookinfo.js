@@ -6,7 +6,9 @@ const router = express.Router();
 const bookData = require("../data/books");
 
 router.get("/", async(req,res) =>{
-    res.render("pages/bookinfo");
+    // console.log(res);
+    // res.render("pages/bookinfo");
+    
     // //represent the bookinfo  && check if it in db
     // var bookinfo = await bookData.getBookByName(bookname);
     // var exist = bookinfo !== undefined;
