@@ -1,0 +1,30 @@
+<section>
+    <div id = "banner">
+      <div id = "name">
+          Recommended list
+      </div>
+      
+      <div id = "heading">
+          Recommended books for everyone.
+      </div>
+    
+    </div>
+
+
+    <div id = "destBlock">
+         {{#each books}}  
+        <article class="books">
+        <h2>{{name}}</h2>
+        <p>Public_date: {{public_date}}</p>
+        <p>Author: {{author}}</p>
+        <p>Rating: {{rating}}</p>
+        <p>Number of Ratings: {{numOfRating}}</p>
+        <p>Comments: {{comments}}</p>
+        <p>Introduce: {{introduce}}</p>
+        </article>
+        {{/each}}
+    </div>
+
+
+
+</section>

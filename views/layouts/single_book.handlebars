@@ -1,0 +1,42 @@
+<article class="book_info">
+    <header>
+        <h2>{{dest.name}}</h2>
+    </header>
+	
+    <div>
+        <p>bookname: {{dest.bookname}}</p>
+        <p>author: {{dest.author}}</p>
+        <p>Introduce {{dest.Introduce}}</p>
+        <p>Rating: {{dest.rating}}</p>
+        <p>Number of Ratings: {{dest.numOfRating}}</p>
+       
+    </div>
+</article>
+
+<section class="comments">
+    <header>
+        <h3>Comments:</h3>
+    </header>
+    <p>{{dest.comments.text}}</p>
+    <h4>Add a Comment: </h4>
+    <form id="addComment-form" action="/singlebook/addComment" method="POST">
+        <textarea name="comments" id="comments">How do you like it?</textarea>
+        <br>
+
+        <input type="submit" value="Submit">
+    </form>
+</section>
+
+<section class="rate">
+    <header>
+        <h3>rate:</h3>
+    </header>
+    <p>{{dest.rating.text}}</p>
+    <h4>Add a rate: </h4>
+    <form id="addrate-form" action="/singlebook/addrate" method="POST">
+        <textarea name="rate" id="rate"> </textarea>
+        <br>
+
+        <input type="submit" value="Submit">
+    </form>
+</section>
