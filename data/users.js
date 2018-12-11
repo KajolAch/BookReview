@@ -142,7 +142,12 @@ const checkPassword = async function checkPassword(username, password) {
     console.log(username);
     console.log(password);
     try {
+<<<<<<< HEAD
         //var user = await getExistingUser(username);
+=======
+       // var user = await getExistingUser(username);
+       var user = await getUser(username);
+>>>>>>> b1ecb55bf28ab7157c7af1bf31bd430735e0f103
 
     } catch (error) {
         console.log("error");

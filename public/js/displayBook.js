@@ -25,17 +25,21 @@
                         for(i=0;i<response.items.length;i++){
                             console.log(response.items[i].volumeInfo.title);
                            title=$('<h5>'+response.items[i].volumeInfo.title + '</h5>');
-                           author=$('<h5>'+response.items[i].volumeInfo.authors + '</h5>');
-                           img=$('<img src='+response.items[i].volumeInfo.imageLinks.smallThumbnail +'></img>');
+                           author=$('<h5> Author: '+response.items[i].volumeInfo.authors + '</h5>');
+                           //img=$('<img src='+response.items[i].volumeInfo.imageLinks.smallThumbnail +'></img>');
+                           img=$('<img src='+response.items[i].volumeInfo.imageLinks.thumbnail +'></img>');
+                           moreDetails=$('<button onclick="/bookinfo">More Details</button>');
                           // let listItem=title;
                            //$("#BookList").append(listItem);
                            title.appendTo("#BookList");
                            author.appendTo("#BookList");
                            img.appendTo("#BookList");
+                          moreDetails.appendTo("#BookList");
+
                         }  
                      });
                      
-                     
+                     $("#searchForm").trigger('reset'); //clear previous search?
                   }
               }
            // console.log(textElement.value);

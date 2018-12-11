@@ -1,5 +1,5 @@
-const express = require('express');
-const router = express.Router();
+// const express = require('express');
+// const router = express.Router();
 
 
 //bring up the data from mongodb or api
@@ -7,6 +7,7 @@ const bookData = require("../data/books");
 
 router.get("/", async(req,res) =>{
     res.render("pages/bookinfo");
+}
     // //represent the bookinfo  && check if it in db
     // var bookinfo = await bookData.getBookByName(bookname);
     // var exist = bookinfo !== undefined;
@@ -27,6 +28,6 @@ router.get("/", async(req,res) =>{
     //     res.status(403).render("error",data)
     // }
 
-})
+// })
 
-module.exports = router;
+// module.exports = router;

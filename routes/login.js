@@ -57,7 +57,7 @@ router.post("/", async(req,res) => {
 
 });
 
-//also we need to add register
+//also we need to add register...aao typed this...
 
 module.exports = router;
 

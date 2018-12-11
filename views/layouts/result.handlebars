@@ -1,0 +1,41 @@
+
+<section>
+    <div id = "banner">
+      <div id = "name">
+          Find Your book
+      </div>
+      
+      <div id = "heading">
+          Search book information
+      </div>
+<form id="search" action="/result" method="get">
+        <input name="query" type="text" placeholder="Start your search" id="query">
+        <input type="submit" value="Search">
+</form>
+</div>
+
+</section>
+{{#if error}}
+<div id="form-error" class="form-error">
+  <h3>Error:</h3>
+  {{ error }}
+</div>
+{{/if}}
+<article class="resultPage">
+	<div id = "destBlock">
+         {{#each searchResults}}  
+        <article class="books">
+        
+		<a href="/single_book/{{this._id}}" class="title">
+			<h3>{{name}}</h3>
+		</a>
+        <p>Author: {{author}}</p>
+        <p>Introduce: {{introduce}}</p>
+        <p>Rating: {{rating}}</p>
+        <p>Number of Ratings: {{numOfRating}}</p>
+		{{else}}
+		<p>No Result</p>
+        </article>
+        {{/each}}
+    </div>
+</article>

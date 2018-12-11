@@ -22,6 +22,8 @@ router.post("/", async(req,res) =>{
     var birth = req.body.date;
     var phone = req.body.phone;
 
+    //here we need to check validation for all starting from username till phone.
+
     //check status
     var error_message = "Account already exists.";
     try{
