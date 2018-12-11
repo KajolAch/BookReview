@@ -8,7 +8,7 @@ const  searchRoutes = require("./search");
 const constructorMethod = app => {
   app.use("/register",registerRoutes);
   app.use("/login", loginRoutes);
-  //app.use("/bookinfo/:bookId", bookinfoRoutes);
+  app.use("/bookinfo", bookinfoRoutes);
   app.get('/bookinfo/:bookId', function (req, res) {
     
     console.log(req.params);

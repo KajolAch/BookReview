@@ -1,6 +1,6 @@
 
 <div class='bookinfo'>
-    <input type="hidden" value={{bookId}} id="bookId">
+    
  <h1>Book Info</h1>
     <div class = 'bookname'>
        
@@ -13,7 +13,7 @@
         var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
         
         viewer.load('{{bookId}}');
-        books.volume.get('{{bookId}}')
+      //  books.volume.get('{{bookId}}')
       }
 
       google.books.setOnLoadCallback(initialize);
@@ -28,11 +28,13 @@
 
    <div class = 'comment'>
         <div class = 'comment_dashboard'>
-            <form>
-                <textarea class='input' placeholder='Comment'></textarea><br>
-                <input type="number" placeholder="Rating out of 5">
+            <form id="BookInfoForm" method="POST" action="/bookinfo">
+                <textarea class='input' name="review" placeholder='Add Review'></textarea><br>
+                <input type="number" name="rating" placeholder="Rating out of 5">
+                <input type="hidden" value={{bookId}} name="bookId">
+                 <button class = 'submit' type = 'submit'>Add</button>
             </form>
-            <button class = 'submit' type = 'button'>Submit</button>
+           
         </div>
     </div> 
 </div>
