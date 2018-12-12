@@ -40,9 +40,8 @@ const createUser = async function createUser(username, password, name,birth, ema
     }
 
 }
-
 const getAllUsers = async function getAllUsers() {
-    try {
+    try {   
         const userCollection = await users();
         const allUsers = await userCollection.find({}).toArray();
         console.log(allUsers);
@@ -76,12 +75,19 @@ const getUser = async function getUser(id) {
 
 }
 
+//finding user with its username provided
 const findExistingUser = async function findExistingUser(username) {
+    console.log('username recieved is:' + username);
     if (!username)
         throw "Please provide a username";
     try {
+        console.log('came in try of find existing user');
         const userCollection = await users();
-        return await userCollection.findOne({ name: username });
+        console.log('user collection contauins' + userCollection);
+        console.log('returning from usercollection');
+        const userInfoWeNeeded = await userCollection.findOne({ username : username });
+        console.log('nedded user info: ' + userInfoWeNeeded);
+        return userInfoWeNeeded;
     }
     catch (err) {
         console.log(err);
@@ -169,7 +175,7 @@ module.exports = {
     getAllUsers,
     getUser,
     findExistingUser,
-    //getExistingUser,
+    //getExistingUser
     updateUser,
     removeUser,
     checkPassword
