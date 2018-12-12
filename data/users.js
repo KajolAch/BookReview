@@ -176,7 +176,7 @@ module.exports = {
     getAllUsers,
     getUser,
     findExistingUser,
-    //getExistingUser,
+    //getExistingUser
     updateUser,
     removeUser,
     checkPassword

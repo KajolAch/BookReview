@@ -1,4 +1,4 @@
-<head>
+{{!-- <head>
     <title>
         Profile
     </title>
@@ -13,4 +13,30 @@
 
         <button><a href = '/views/pages/changepassword.handlebars'></a>Change Password</button>
     </main>
-</body>
+</body> --}}
+<!doctype html>
+<html>
+    <head>
+        <title>Profile</title>
+        <link rel='stylesheet' href='./css/style.css'>
+    </head>
+    <body>
+            <ul>
+                <li><a class="active" href="./home.html">Home</a></li>
+                <li><a href="./profile.html">Profile</a></li>
+                <li><a href="./logout.html">Logout</a></li>
+            </ul>
+
+
+        <div class='display'>
+            <h1 class ='title'>Profile</h1>
+            <!-- probable have 1 label here -->
+            <div class = 'user-information'>
+                <label for='name'>Name:</label>
+                <!-- bring up user info -->
+                <br/>
+            </div>
+            <a href ='/changepassword'>Change password</a>
+        </div>
+    </body>
+</html>

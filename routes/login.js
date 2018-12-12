@@ -24,13 +24,14 @@ async function checkstatus(username,password){
     //console.log('password is:' + password);
     //check both userInfo exist && password correct
     if( username && password){
+        if( username && password){
         return true;
     }else{
         return false;
     }
 
 
-}
+}}
 
 //for existing user this router.get is needed
 router.get("/", async(req,res) => {
