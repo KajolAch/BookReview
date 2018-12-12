@@ -1,36 +1,37 @@
-<!doctype html>
-<html>
-    <head>
-        <meta charset = 'utf-8'>
-        <title>Search result: book info</title>
-        <link rel='stylesheet' href='./css/style.css'>
-    </head>
-    <body>
-        <h1>Welcome, {{{username}}}</h1>
+<div class='bookinfo'>
+    
+ <h1>Book Info</h1>
+    <div class = 'bookname'>
+       
+    </div>
+<script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+    <script type="text/javascript">
+      google.books.load();
+      function initialize() {
+        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+        
+        viewer.load('{{bookId}}');
+      //  books.volume.get('{{bookId}}')
+      }
+      google.books.setOnLoadCallback(initialize);
+    </script>
+     
+    <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
+  
+    {{!-- <div class = 'bookimg'>
+        <p>here add an image</p>
+        <!-- here add book img  in the div if possablee -->
+    </div> --}}
 
-        <div class='bookinfo'>
-
-            <div class = 'bookname'>
-                <h1>The book name over here.</h1>
-            </div>
-
-
-            <div class = 'bookimg'>
-                <h1>here add an image</h1>
-                <!-- here add book img  in the div if possablee -->
-            </div>
-
-
-            <div class='bookinformation'>
-                <h1>add more feature</h1>
-                <!-- add button(like), book rating, -->
-            </div>
-
-            <a href= "Add Review">Add Review</a>
-            <br>
-            <br>
-            <a href= "Add Rating">Add Rating</a>
-
+   <div class = 'comment'>
+        <div class = 'comment_dashboard'>
+            <form id="BookInfoForm" method="POST" action="/bookinfo">
+                <textarea class='input' name="review" placeholder='Add Review'></textarea><br>
+                <input type="number" name="rating" placeholder="Rating out of 5">
+                <input type="hidden" value={{bookId}} name="bookId">
+                 <button class = 'submit' type = 'submit'>Add</button>
+            </form>
+           
         </div>
-    </body>
-</html>
+    </div> 
+</div>

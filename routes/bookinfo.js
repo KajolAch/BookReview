@@ -6,7 +6,9 @@ const router = express.Router();
 const bookData = require("../data/books");
 
 router.get("/", async(req,res) =>{
-    res.render("pages/bookinfo");
+    // console.log(res);
+    // res.render("pages/bookinfo");
+    
     // //represent the bookinfo  && check if it in db
     // var bookinfo = await bookData.getBookByName(bookname);
     // var exist = bookinfo !== undefined;
@@ -28,5 +30,19 @@ router.get("/", async(req,res) =>{
     // }
 
 })
+router.post("/", async(req,res) =>{
+    console.log("in post method of bookinfo");
+    console.log(req.body);
+    var bookId=req.body.bookId;
+    var review=req.body.review;
+    var rating=req.body.rating;    
+    
+    try{
+                                                
+        reviewCreated = await bookData.addBookReview(bookId,review,rating);
+    }catch(e){
+        error_message = "Please dont leave empty blank";
+    }
+});
 
 module.exports = router;

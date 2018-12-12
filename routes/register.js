@@ -37,10 +37,11 @@ router.post("/", async(req,res) =>{
         var data={
             error:error_message
         }
-        res.render("pages/register",data);
+        res.render("pages/search");
     }else{
         res.redirect("search");
     }
-})
+});
+
 
 module.exports = router;

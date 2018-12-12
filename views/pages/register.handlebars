@@ -1,12 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>User Registration</title>
+    <link rel="stylesheet" href="/public/css/site.css">
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+
+</head>
+<body>
 <h2>User Registration</h2>
 <form action="/register" id="RegistrationForm" method="POST">
     <div class="form-group">
-    <label for="inputUsername" >  Username:
-        </label><br>
-    <input type = "text" id="inputUsername" name = "username" placeholder="Enter User Name"><br>
-    <label for="inputPassword">
-    Password:</label><br>
-    <input type = "password" id="inputPassword" name = "password" placeholder="Enter Password"><br>
+    <label for="inputUsername">Username:</label><br>
+    <input type = "text" id="inputUsername" name = "username" placeholder="Enter User Name" class="form-control"><br>
+    </div>
+
+    <div class="form-group">
+    <label for="inputPassword">Password:</label><br>
+    <input type = "password" id="inputPassword" name = "password" placeholder="Enter Password" class="form-control"><br>
+    </div>
+
+    
     <label for="InputName">
     Name:</label><br>
     <input type = "text" id="InputName" name = "fullname" placeholder="Enter Full Name"><br>
@@ -29,6 +43,8 @@
     <input type = "submit" class="btn btn-primary" value="Register">
     </div>
 
-    <a href = "/views/pages/login.handlebars" >Existing User?</a>
+    <a href = "/login" >Existing User?</a>
     <br>
 </form>
+</body>
+</html>
