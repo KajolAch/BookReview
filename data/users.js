@@ -136,6 +136,14 @@ const removeUser = async function removeUser(id) {
 
 }
 
+const getUser = async function getUser(username) {
+    console.log(username);
+    if (!username) throw "Please provide a username";
+    const userCollection = await users();
+    return await userCollection.findOne({ name: username });
+}
+
+
 const checkPassword = async function checkPassword(username, password) {
     console.log("d0");
     let hash = await bcrypt.hash(password, saltRounds);
@@ -171,7 +179,7 @@ module.exports = {
     getAllUsers,
     getUser,
     findExistingUser,
-    //getExistingUser,
+    getUser,
     updateUser,
     removeUser,
     checkPassword
