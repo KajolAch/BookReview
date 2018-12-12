@@ -29,7 +29,7 @@ router.post("/", async(req, res) =>
         return;
     }
 
-    const tempUser = await userData.getExistingUser(username);
+    const tempUser = await userData.getUser(username);
     console.log(tempUser);
     console.log(tempUser.name);
     console.log(tempUser.gender);
