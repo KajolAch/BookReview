@@ -31,13 +31,13 @@ router.post("/", async(req,res) =>{
         error_message = "Please dont leave empty blank";
     }
 
-
-
-    if(username === userData.username){
+    if(username === userCreated.username){
         var data={
             error:error_message
         }
-        res.render("pages/search");
+        res.render("pages/search",{
+           userId: userCreated._id
+        });
     }else{
         res.redirect("search");
     }

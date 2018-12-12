@@ -1,6 +1,7 @@
 const mongodb = require("mongodb");
 const mongoCollections = require("../config/mongoCollections");
 const books = mongoCollections.books;
+const users=require("./users");
 const uuid = require("uuid/v4");
 
 const listOfBooks = [
@@ -103,7 +104,7 @@ async function searchBooks(searchInfo) {
     }
 }
 
-async function addBookReview(bookId,review, rating) {
+async function addBookReview(bookId,review, rating) {// pass user
 
     const destCollection = await books();
     // const newbook = {
@@ -117,10 +118,15 @@ async function addBookReview(bookId,review, rating) {
     //     introduce:Object.values(book)[6]
     // };
     if (typeof review !== "string") throw "Your should write a review";
-
+    const userDetails= await users.getUser(userId);
     const newbookReview={
-        _id: bookId,
+        _id: uuid.v4(),
+        Bookid:bookId,
         rating:rating,
+        persona:{
+            id: userId,
+            name: userDetails.username
+        },
         review:review
         //userID should be added
     }
