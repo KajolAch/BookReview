@@ -33,13 +33,19 @@ router.post("/", async(req,res) =>{
 
 
 
-    if(username === userData.username){
-        var data={
-            error:error_message
-        }
-        res.render("pages/search");
-    }else{
-        res.redirect("search");
+    // if(username === userData.username){
+    //     var data={
+    //         error:error_message
+    //     }
+    //     res.render("pages/search");
+    // }else{
+    //     res.redirect("login");
+    // }
+    if(userCreated.username === username){
+        res.render('page/register');
+    }
+    else{
+        res.redirect('search');
     }
 });
 

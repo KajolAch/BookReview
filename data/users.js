@@ -78,22 +78,66 @@ const getUser = async function getUser(id) {
 
 //finding user with its username provided
 const findExistingUser = async function findExistingUser(username) {
-    console.log('username recieved is:' + username);
-    if (!username)
-        throw "Please provide a username";
+
+    //here I need to check if my collection contains username
     try {
-        console.log('came in try of find existing user');
         const userCollection = await users();
-        console.log('user collection contauins' + userCollection);
-        console.log('returning from usercollection');
         const userInfoWeNeeded = await userCollection.findOne({ username : username });
-        console.log('nedded user info: ' + userInfoWeNeeded);
+        console.log("userinfoweneed" +userInfoWeNeeded)
         return userInfoWeNeeded;
     }
     catch (err) {
         console.log(err);
     }
 }
+
+const checkstatus = async function checkstatus(username, password){
+    //username to be checked.....in getexisting user
+    userInfo = await findExistingUser(username);
+    if(username === userInfo.username && password === userInfo.password){
+        console.log(true);
+        return {status:true,userid:userInfo._id};
+    }
+    else{
+        return {status:false, msg:"Invalid username or password"};
+    }
+    
+    
+    // for(var i=0;i<userInfo.length;i++){
+    //     console.log(userinfo[i]);
+    //     if(username === userInfo[i].username){
+            
+    //         //if(bcrypt.compareSync(password, userInfo[i].hashedpassword))
+    //         if(password === userInfo[i].password){
+    //             let user = userInfo[i];
+    //             console.log('user is '+ user);
+    //             //console.log('user is user[i]: '+ users[i]);
+    //             return {status: true, user} ;
+    //         }
+    //         else{
+    //             return {status: false, message: 'Invalid username or password'};
+    //         }
+    //     }
+        
+    // }
+    // return {status: false, message: 'Invalid username or password'};
+
+
+
+    // const userInfo = await findExistingUser(username);
+    // for(var i=0; i< userInfo.length; i++){
+    //     if(userInfo[i].username === username){
+    //         if(userInfo[i].password === password){
+    //              return true;
+    //         }
+    //         else{
+    //             return false;
+    //         }
+    //     }
+    // }
+    
+
+} 
 
 
 
@@ -179,5 +223,6 @@ module.exports = {
     //getExistingUser
     updateUser,
     removeUser,
-    checkPassword
+    checkPassword,
+    checkstatus
 };
