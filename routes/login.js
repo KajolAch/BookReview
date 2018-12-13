@@ -9,6 +9,10 @@ const userData = require("../data/users");
 
 //function to checkstatus
 async function checkstatus(username, password) {
+    if(!username || typeof username !== String || typeof username === null){
+        throw "Provide a proper username"
+    }
+
     // get userinfo from userdata
     
     userInfo = await userData.findExistingUser(username);

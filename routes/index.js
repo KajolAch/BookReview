@@ -13,9 +13,7 @@ const constructorMethod = app => {
     
     console.log(req.params);
     //res.send(req.params);
-    res.render("pages/bookinfo",
-      req.params
-  );
+    res.render("pages/bookinfo",req.params);
   })
   app.use("/search", searchRoutes);
   //app.use("/reviewrating", reviewratingRoutes);
