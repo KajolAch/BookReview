@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 16;
 
 
+
 const createUser = async function createUser(username, password, name,birth, email,phone,gender) {
    console.log(password);
     if (typeof password !== "string") throw "please provide a password!";
@@ -22,8 +23,8 @@ const createUser = async function createUser(username, password, name,birth, ema
             email: email,
             phone: phone,
         };
-        console.log(newInfo);
-       const userCollection = await users();
+       // console.log(newInfo);
+        const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newInfo);
 
         if (insertInfo.insertedCount === 0)
@@ -83,8 +84,14 @@ const findExistingUser = async function findExistingUser(username) {
     try {
         const userCollection = await users();
         const userInfoWeNeeded = await userCollection.findOne({ username : username });
-        console.log("userinfoweneed" +userInfoWeNeeded)
-        return userInfoWeNeeded;
+        
+        if( userInfoWeNeeded !== null){
+            return userInfoWeNeeded;
+        }
+        else{
+            return {msg: "Provided username does not exists! Please reenter username or register first"};
+        }
+        
     }
     catch (err) {
         console.log(err);
@@ -101,41 +108,6 @@ const checkstatus = async function checkstatus(username, password){
     else{
         return {status:false, msg:"Invalid username or password"};
     }
-    
-    
-    // for(var i=0;i<userInfo.length;i++){
-    //     console.log(userinfo[i]);
-    //     if(username === userInfo[i].username){
-            
-    //         //if(bcrypt.compareSync(password, userInfo[i].hashedpassword))
-    //         if(password === userInfo[i].password){
-    //             let user = userInfo[i];
-    //             console.log('user is '+ user);
-    //             //console.log('user is user[i]: '+ users[i]);
-    //             return {status: true, user} ;
-    //         }
-    //         else{
-    //             return {status: false, message: 'Invalid username or password'};
-    //         }
-    //     }
-        
-    // }
-    // return {status: false, message: 'Invalid username or password'};
-
-
-
-    // const userInfo = await findExistingUser(username);
-    // for(var i=0; i< userInfo.length; i++){
-    //     if(userInfo[i].username === username){
-    //         if(userInfo[i].password === password){
-    //              return true;
-    //         }
-    //         else{
-    //             return false;
-    //         }
-    //     }
-    // }
-    
 
 } 
 
@@ -187,7 +159,7 @@ const removeUser = async function removeUser(id) {
 }
 
 const checkPassword = async function checkPassword(username, password) {
-    console.log("d0");
+    //console.log("d0");
     let hash = await bcrypt.hash(password, saltRounds);
     console.log(hash);
     console.log(username);
@@ -220,7 +192,6 @@ module.exports = {
     getAllUsers,
     getUser,
     findExistingUser,
-    //getExistingUser
     updateUser,
     removeUser,
     checkPassword,

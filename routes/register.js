@@ -8,11 +8,8 @@ router.get("/", async(req,res) => {
 });
 
 router.post("/", async(req,res) =>{
-    //get user info
-    // I think so here name should also be added...as for registration page its needed
     
-    console.log("In post method");
-    console.log(req.body);
+    //console.log(req.body);
     let RegisterData = req.body;
     var username = RegisterData.username;
     var password = RegisterData.password;
@@ -23,7 +20,7 @@ router.post("/", async(req,res) =>{
     var phone = req.body.phone;
 
     //check status
-    var error_message = "Account already exists.";
+
     try{
                                                 
         userCreated = await userData.createUser(username,password,name,birth,email,phone,gender);
@@ -31,21 +28,12 @@ router.post("/", async(req,res) =>{
         error_message = "Please dont leave empty blank";
     }
 
-
-
-    // if(username === userData.username){
-    //     var data={
-    //         error:error_message
-    //     }
-    //     res.render("pages/search");
-    // }else{
-    //     res.redirect("login");
-    // }
     if(userCreated.username === username){
-        res.render('page/register');
+        res.redirect('/search');
+        
     }
     else{
-        res.redirect('search');
+        res.render('pages/register');
     }
 });
 
