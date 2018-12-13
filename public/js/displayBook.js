@@ -9,9 +9,10 @@
         try {
   
             const BookNameElement = document.getElementById("BookName");
-            const userId=document.getElementById("userId");
+          //   const userIdElement=document.getElementById("userId");
             const BookName = BookNameElement.value;
-
+            //const userId=userIdElement.value;
+           // console.log(userId);
             if(BookName){
                 if(!typeof(BookName)=="string"){
                     throw "Phrase passed is not a String";
@@ -25,6 +26,7 @@
                         console.log(response);
                         for(i=0;i<response.items.length;i++){
                             console.log(response.items[i].volumeInfo.title);
+                            
                            title=$('<h5 id="title">'+response.items[i].volumeInfo.title + '</h5>');
                            author=$('<h5 id="authors">'+response.items[i].volumeInfo.authors + '</h5>');
                            if(response.items[i].volumeInfo.hasOwnProperty('imageLinks')){

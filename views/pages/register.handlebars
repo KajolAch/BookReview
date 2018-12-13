@@ -3,13 +3,13 @@
     <div class="form-group">
     <label for="inputUsername" >  Username:
         </label><br>
-    <input type = "text" id="inputUsername" name = "username" placeholder="Enter User Name"><br>
+    <input type = "text" id="inputUsername" name = "username" placeholder="Enter User Name" required><br>
     <label for="inputPassword">
     Password:</label><br>
-    <input type = "password" id="inputPassword" name = "password" placeholder="Enter Password"><br>
+    <input type = "password" id="inputPassword" name = "password" placeholder="Enter Password" required><br>
     <label for="InputName">
     Name:</label><br>
-    <input type = "text" id="InputName" name = "fullname" placeholder="Enter Full Name"><br>
+    <input type = "text" id="InputName" name = "fullname" placeholder="Enter Full Name" required><br>
     <label for="inputGender">
     Gender:</label><br>
     <input type = "radio" id="inputGender" name = "gender" value = "male">Male<br>
@@ -30,3 +30,11 @@
     </div>
 </form>
 {{!-- Error handling --}}
+{{#if hasErrors}}
+  <p class="error">
+    {{#each errors}}
+      {{this}}
+   
+    {{/each}}
+  </p>
+  {{/if}}

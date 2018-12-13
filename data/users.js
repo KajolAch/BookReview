@@ -56,8 +56,7 @@ const getAllUsers = async function getAllUsers() {
 
 const getUser = async function getUser(id) {
 
-    if (!id)
-        throw "Please provide a userid";
+    if (!id) throw "Please provide a userid";
 
     try {
         const userCollection = await users();
@@ -86,7 +85,7 @@ const findExistingUser = async function findExistingUser(username) {
         console.log('user collection contauins' + userCollection);
         console.log('returning from usercollection');
         const userInfoWeNeeded = await userCollection.findOne({ username : username });
-        console.log('nedded user info: ' + userInfoWeNeeded);
+        console.log('needed user info: ' + userInfoWeNeeded);
         return userInfoWeNeeded;
     }
     catch (err) {
