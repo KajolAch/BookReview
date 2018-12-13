@@ -4,62 +4,6 @@ const books = mongoCollections.books;
 const users=require("./users");
 const uuid = require("uuid/v4");
 
-const listOfBooks = [
-    {
-        _id: uuid(),
-        bookname: "example1",
-        public_date: "06-06-2006",
-        author: "humid continental",
-        rating: 0,
-        numOfRating: 0,
-        comments: [],
-        introduce: "add introduce to here",
-    },
-    {
-        _id: uuid(),
-        bookname: "example2",
-        public_date: "06-06-2006",
-        author: "oceanic",
-        rating: 0,
-        numOfRating: 0,
-        comments: [],
-        introduce: "add introduce to here",
-    },
-    {
-        _id: uuid(),
-        name: "example3",
-        public_date: "06-06-2006",
-        author: "temperate oceanic",
-        rating: 0,
-        numOfRating: 0,
-        comments: [],
-        introduce: "add introduce to here",
-    },
-    {
-        _id: uuid(),
-        name: "example4",
-        public_date: "06-06-2006",
-        author: "tropical",
-        rating: 0,
-        numOfRating: 0,
-        comments: [],
-        introduce: "add introduce to here",
-    },
-    {
-        _id: uuid(),
-        name: "example5",
-        public_date: "06-06-2006",
-        author: "oceanic",
-        rating: 0,
-        numOfRating: 0,
-        comments: [],
-        introduce: "add introduce to here",
-    },
-
-]
-
-
-
 async function getBooksByName(name) {
     if (!name) throw "No book name provided";
     const destCollection = await books();
@@ -104,30 +48,22 @@ async function searchBooks(searchInfo) {
     }
 }
 
-async function addBookReview(bookId,review, rating) {// pass user
+async function addBookReview(bookId,review,rating,userId,userName) {// pass user
 
     const destCollection = await books();
-    // const newbook = {
-    //     _id: bookId,
-    //     name: Object.values(book)[0],
-    //     public_date: Object.values(book)[1],
-    //     author: Object.values(book)[2],
-    //     rating: Object.values(book)[3],
-    //     numOfRating: Object.values(book)[4],
-    //     comments: Object.values(book)[5],
-    //     introduce:Object.values(book)[6]
-    // };
-    if (typeof review !== "string") throw "Your should write a review";
-    const userDetails= await users.getUser(userId);
+    console.log("in addBookReview");
+    console.log(userName);
+    console.log(userId);
+    if (typeof review !== "string") throw "You should write a review";
+    //const userDetails= await users.getUser(userId);
     const newbookReview={
-        _id: uuid.v4(),
+        _id: uuid(),
         Bookid:bookId,
         rating:rating,
-        persona:{
-            id: userId,
-            name: userDetails.username
-        },
-        review:review
+        review:review,
+        userId: userId,
+        userName: userName
+ 
         //userID should be added
     }
         console.log(newbookReview);
@@ -190,6 +126,5 @@ module.exports = {
     addBookReview,
     updateRating,
     // loadAllBooks,
-    searchBooks,
-    listOfBooks
+    searchBooks
 };

@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const bookData = require("../data/books");
+const users=require("../data/users");
 
 router.post("/", async(req,res) =>{
     console.log("in post method of bookinfo");
@@ -9,12 +10,12 @@ router.post("/", async(req,res) =>{
     var review=req.body.review;
     var rating=req.body.rating;    
     
-    try{                                          
-       const reviewCreated = await bookData.addBookReview(bookId,review,rating);
-        res.render("pages/bookinfo",
-        {
-            reviewCreated:reviewCreated
-        });
+    try{    
+        let user=await users.getUser(req.cookies.AuthCookie);      
+        console.log(user);                                
+        const reviewCreated = await bookData.addBookReview(bookId,review,rating,user._id,user.username);
+       
+        res.render("pages/bookinfo");
     }catch(e){
         error_message = "Please dont leave empty blank";
     }
