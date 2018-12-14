@@ -1,0 +1,102 @@
+body{
+  margin:0px;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+li {
+  float: left;
+}
+
+li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+li a:hover {
+  background-color: #111;
+}
+
+.display{
+  margin-left:10%;
+  width:80%;
+  height:100%;
+}
+
+.title{
+  border-bottom: 2mm black solid;
+}
+
+.bookimg{
+  float:left;
+  height: 400px;
+  width: 300px;
+  border-top: 1mm black solid;
+  border-left: 1mm blue solid;
+  border-bottom: 1mm green solid;
+  border-right: 1mm yellow solid;
+}
+
+.bookreview{
+  margin-left:200px;
+  float:left;
+  height: 500px;
+  width :380px;
+  border-top: 1mm black solid;
+  border-left: 1mm blue solid;
+  border-bottom: 1mm green solid;
+  border-right: 1mm yellow solid;
+}
+
+.input{
+  width :770px;
+  height: 80px;
+  /* overflow-y: scroll; */
+}
+
+.comment{
+    display:inline-block;
+    position: relative;
+    border: 1mm black solid;
+    width: 878px;
+    height: 100px;
+}
+
+/* register part */
+.rpic{
+  float:auto;
+  width:300px;
+  height:300px;
+}
+
+/* search part */
+.grid {
+  display: grid;
+ /* define the number of grid columns */
+ grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+}
+
+.background{
+  background-image:url('../css/bookimg1.jpeg');
+
+  background-repeat:no-repeat;
+
+  background-size:cover;
+}
+
+/* if have time to add csss */
+@media only screen and (max-width: 600px) {
+    body {
+      background-color: lightblue;
+    }
+  }

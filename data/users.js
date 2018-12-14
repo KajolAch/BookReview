@@ -5,9 +5,8 @@ const bcrypt = require("bcrypt");
 const saltRounds = 16;
 
 
-const createUser = async function createUser(username, password, name, gender, email, phone) {
-    console.log('came in createuser function');
-    //console.log(password);
+const createUser = async function createUser(username, password, name,birth, email,phone,gender) {
+   // console.log(password);
     if (typeof password !== "string") throw "please provide a password!";
     let hash = await bcrypt.hash(password, saltRounds);
     console.log(hash);
@@ -23,8 +22,8 @@ const createUser = async function createUser(username, password, name, gender, e
             email: email,
             phone: phone,
         };
-        
-        const userCollection = await users();
+        console.log(newInfo);
+       const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newInfo);
 
         if (insertInfo.insertedCount === 0)
@@ -41,9 +40,8 @@ const createUser = async function createUser(username, password, name, gender, e
     }
 
 }
-
 const getAllUsers = async function getAllUsers() {
-    try {
+    try {   
         const userCollection = await users();
         const allUsers = await userCollection.find({}).toArray();
         console.log(allUsers);
@@ -58,8 +56,7 @@ const getAllUsers = async function getAllUsers() {
 
 const getUser = async function getUser(id) {
 
-    if (!id)
-        throw "Please provide a userid";
+    if (!id) throw "Please provide a userid";
 
     try {
         const userCollection = await users();
@@ -77,12 +74,19 @@ const getUser = async function getUser(id) {
 
 }
 
+//finding user with its username provided
 const findExistingUser = async function findExistingUser(username) {
+    console.log('username recieved is:' + username);
     if (!username)
         throw "Please provide a username";
     try {
+        console.log('came in try of find existing user');
         const userCollection = await users();
-        return await userCollection.findOne({ name: username });
+        console.log('user collection contauins' + userCollection);
+        console.log('returning from usercollection');
+        const userInfoWeNeeded = await userCollection.findOne({ username : username });
+        console.log('needed user info: ' + userInfoWeNeeded);
+        return userInfoWeNeeded;
     }
     catch (err) {
         console.log(err);
@@ -136,14 +140,6 @@ const removeUser = async function removeUser(id) {
 
 }
 
-const getUser = async function getUser(username) {
-    console.log(username);
-    if (!username) throw "Please provide a username";
-    const userCollection = await users();
-    return await userCollection.findOne({ name: username });
-}
-
-
 const checkPassword = async function checkPassword(username, password) {
     console.log("d0");
     let hash = await bcrypt.hash(password, saltRounds);
@@ -151,8 +147,7 @@ const checkPassword = async function checkPassword(username, password) {
     console.log(username);
     console.log(password);
     try {
-       // var user = await getExistingUser(username);
-       var user = await getUser(username);
+        //var user = await getExistingUser(username);
 
     } catch (error) {
         console.log("error");
@@ -179,7 +174,7 @@ module.exports = {
     getAllUsers,
     getUser,
     findExistingUser,
-    getUser,
+    //getExistingUser
     updateUser,
     removeUser,
     checkPassword

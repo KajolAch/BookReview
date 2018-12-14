@@ -1,32 +1,24 @@
-// const express = require('express');
-// const router = express.Router();
+const express = require('express');
+const router = express.Router();
+const bookData = require("../data/books");
+const users=require("../data/users");
 
+router.post("/", async(req,res) =>{
+    console.log("in post method of bookinfo");
+    console.log(req.body);
+    var bookId=req.body.bookId;
+    var review=req.body.review;
+    var rating=req.body.rating;    
+    
+    try{    
+        let user=await users.getUser(req.cookies.AuthCookie);      
+        console.log(user);                                
+        const reviewCreated = await bookData.addBookReview(bookId,review,rating,user._id,user.username);
+       
+        res.render("pages/bookinfo");
+    }catch(e){
+        error_message = "Please dont leave empty blank";
+    }
+});
 
-// //bring up the data from mongodb or api
-// const bookData = require("___path");
-
-// router.get("/", async(req,res) =>{
-
-//     //represent the bookinfo  && check if it in db
-//     var booinfo = await bookData.getBookByName(bookname);
-//     var exist = bookinfo !== undefined;
-
-//     if(exist){
-//         var data = {
-//             //title return bookname
-//             title: bookinfo.bookname,
-//             review: bookinfo.reviews,
-//             rating : bookinfo.rating
-//         }
-//         res.render('bookinfo',data);
-//     }else{
-//         var data = {
-//             title : "book is not exist",
-//             description: "type another book"
-//         }
-//         res.status(403).render("error",data)
-//     }
-
-// })
-
-// module.exports = router;
+module.exports = router;

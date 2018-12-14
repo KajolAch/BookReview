@@ -1,0 +1,41 @@
+<article>
+	<ul>
+        <li><a class="active" href="../search">Home</a></li>
+        <li><a href="../profile">Profile</a></li>
+        <li><a href="../logout">Logout</a></li>
+    </ul>
+
+    <div class='display'>
+        <h1 class='title'>Search Result</h1>
+
+        <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+        <script type="text/javascript">
+            google.books.load();
+
+            function initialize() {
+                var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+
+                viewer.load('{{bookId}}');
+            //  books.volume.get('{{bookId}}')
+            }
+            google.books.setOnLoadCallback(initialize);</script>
+
+        <div class='bookimg' id="viewerCanvas">
+            {{!-- display the result of api --}}
+        </div>
+
+        <div class='bookreview'>
+            <li class='commentdisplay' id='commentdisplay'></li>
+        </div>
+
+
+        <div class = 'comment'>
+            <form id="BookInfoForm" method="POST" action="/bookinfo" onsubmit="return showcomment()">
+                <textarea class='input' name="review" placeholder='Add Review'></textarea><br>
+                <input type="number" name="rating" placeholder="Rating out of 5">
+                <input type="hidden" value={{bookId}} name="bookId">
+                <input value = 'Submit' type = 'submit'>>
+            </form>
+        </div>
+    </div>
+</article>
