@@ -12,10 +12,16 @@ router.post("/", async(req,res) =>{
     
     try{    
         let user=await users.getUser(req.cookies.AuthCookie);      
-        console.log(user);                                
+        console.log(user);           
+        const insertInfo = await destCollection.getBooksByID(bookId);
+        console.log(insertInfo);
+        if(insertInfo){
+            console.log("book exists");
+            await bookData.addComments();        }    
+        else{
         const reviewCreated = await bookData.addBookReview(bookId,review,rating,user._id,user.username);
-       
-        res.render("pages/bookinfo");
+        }
+        res.render("pages/bookinfo");//change
     }catch(e){
         error_message = "Please dont leave empty blank";
     }

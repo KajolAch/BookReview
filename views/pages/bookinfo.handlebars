@@ -26,16 +26,33 @@
     </script>
      
     <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
-    
+    <div class='bookreview'>
+                <li class='attempts' id='attempts'></li>
+                <!-- add button(like), book rating, -->
+            </div>
    <div class = 'comment'>
         <div class = 'comment_dashboard'>
-            <form id="BookInfoForm" method="POST" action="/bookinfo">
+            <form id="BookInfoForm" method="POST" action="/bookinfo" >
                 <textarea class='input' name="review" placeholder='Add Review'></textarea><br>
                 <input type="number" name="rating" placeholder="Rating out of 5">
                 <input type="hidden" value={{bookId}} name="bookId">
                  <button class = 'submit' type = 'submit'>Add</button>
             </form>
-           
+           {{!-- <script>   
+    function formSubmit(){
+    var comment = document.getElementById('comment_dashboard').value;
+
+    if(comment === undefined){
+        alert('you should enter text');
+
+    }else{
+        var li = document.createElement('li');
+        li.appendChild(document.createTextNode(comment));
+        var attempts = document.getElementById('attempts').appendChild(li);
+    }
+    return false;
+}
+               </script> --}}
         </div>
     </div> 
 </div>

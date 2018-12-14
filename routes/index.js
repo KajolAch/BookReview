@@ -1,9 +1,7 @@
 const registerRoutes = require("./register");
 const loginRoutes = require("./login");
 const bookinfoRoutes = require("./bookinfo");
-const  searchRoutes = require("./search");
-//const reviewratingRoutes = require("./reviewrating");
-
+const searchRoutes = require("./search");
 
 const constructorMethod = app => {
   app.use("/register",registerRoutes);
@@ -14,6 +12,11 @@ const constructorMethod = app => {
   app.get('/profile', function (req, res) {
     res.render("pages/profile");
   })
+
+  app.get('/', function (req, res) {
+    res.redirect("/register");
+  })
+
   app.get('/bookinfo/:bookId', function (req, res) {
     console.log(req.params);
     if(req.cookies.AuthCookie)
@@ -36,6 +39,7 @@ const constructorMethod = app => {
  app.use("*", (req, res) => {
   res.status(404).json({ error: "Not found" });
 });
+
 };
 
 module.exports = constructorMethod;

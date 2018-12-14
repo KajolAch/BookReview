@@ -56,15 +56,14 @@ async function addBookReview(bookId,review,rating,userId,userName) {// pass user
     console.log(userId);
     if (typeof review !== "string") throw "You should write a review";
     //const userDetails= await users.getUser(userId);
+    
     const newbookReview={
         _id: uuid(),
         Bookid:bookId,
         rating:rating,
-        review:review,
+        review:[],
         userId: userId,
         userName: userName
- 
-        //userID should be added
     }
         console.log(newbookReview);
       // const userCollection = await users();
@@ -72,11 +71,12 @@ async function addBookReview(bookId,review,rating,userId,userName) {// pass user
 
         if (insertInfo.insertedCount === 0)
             throw "this review is not added";
-
+    
         const thisUser = await this.getBooksByID(_id);
         console.log(thisUser.rating);
         console.log(thisUser.review);
         return thisUser;
+    
 }
 
 // async function loadAllBooks() {
