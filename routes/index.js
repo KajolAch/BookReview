@@ -2,7 +2,7 @@ const registerRoutes = require("./register");
 const loginRoutes = require("./login");
 const bookinfoRoutes = require("./bookinfo");
 const  searchRoutes = require("./search");
-//const reviewratingRoutes = require("./reviewrating");
+const changepasswordRoutes = require("./changepassword");
 
 
 const constructorMethod = app => {
@@ -10,6 +10,7 @@ const constructorMethod = app => {
   app.use("/login", loginRoutes);
   app.use("/bookinfo", bookinfoRoutes);
   app.use("/search", searchRoutes);
+  app.use("/changepassword", changepasswordRoutes);
 
   app.get('/profile', function (req, res) {
     res.render("pages/profile");

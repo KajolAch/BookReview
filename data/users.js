@@ -92,7 +92,7 @@ const findExistingUser = async function findExistingUser(username) {
             return {msg: "Provided username does not exists! Please reenter username or register first"};
         }
         
-    }
+    }    
     catch (err) {
         console.log(err);
     }
@@ -102,7 +102,7 @@ const checkstatus = async function checkstatus(username, password){
     //username to be checked.....in getexisting user
     userInfo = await findExistingUser(username);
     if(username === userInfo.username && password === userInfo.password){
-        console.log(true);
+        //console.log(true);
         return {status:true,userid:userInfo._id};
     }
     else{
@@ -113,28 +113,7 @@ const checkstatus = async function checkstatus(username, password){
 
 
 
-const updateUser = async function updateUser(userId, input, bookname) {
 
-    if (!userId)
-        throw "Please provide a userid";
-
-    try {
-        const userCollection = await users();
-        const user_his = await userCollection.findOne({ _id: id });
-        var newHistory = {
-            input: input,
-            bookname: bookname
-        };
-
-        user_his.history.push(newHistory);
-        return await this.getUser(userId);
-    }
-
-    catch (err) {
-        console.log(err);
-    }
-
-}
 
 const removeUser = async function removeUser(id) {
 
@@ -158,33 +137,73 @@ const removeUser = async function removeUser(id) {
 
 }
 
-const checkPassword = async function checkPassword(username, password) {
-    //console.log("d0");
-    let hash = await bcrypt.hash(password, saltRounds);
-    console.log(hash);
-    console.log(username);
-    console.log(password);
-    try {
-        //var user = await getExistingUser(username);
+const updateUser = async function updateUser(userInfo) {
 
-    } catch (error) {
-        console.log("error");
-        return false;
+    console.log('came in updateuser');
+    console.log('userinfo recieced is:' + userInfo);
+    var userCollection = await users();
+    const tobeupdatedUser = {
+        _id: userInfo._id,
+        username: userInfo.username,
+        password: userInfo.password,
+        name: userInfo.name,
+        gender: userInfo.gender,
+        birth: userInfo.birth,
+        email: userInfo.email,
+        phone: userInfo.phone
+    };
+    console.log('going to update in db');
+    const updatedUserInfo = await userCollection.replaceOne({username: userInfo.username}, tobeupdatedUser );
+    if(updatedUserInfo.modifiedCount === 0){
+        throw 'to be updated recipe not updated properly in the database';
     }
-    if (user) {
-        try {
-            var res = (user && await bcrypt.compare(password, user.password));
-            console.log(password);
-            console.log(user.name);
-            console.log(res);
-            if (res) {
-                return true;
+    else{ 
+        console.log('came in else of updateuser');
+        return {status: true};
+    }
+
+}
+
+async function updatePassword(username, password, newpassword) {
+    //console.log("d0");
+    //let hash = await bcrypt.hash(password, saltRounds);
+    //console.log(hash);
+    //try {
+        
+        console.log('came in update password');
+        userInfo = await findExistingUser(username);
+        
+        console.log('name is'+ userInfo.username);
+        console.log( 'pass is'+userInfo.password);
+        if(username === userInfo.username && password === userInfo.password){
+            // console.log('came in if of  update password');
+            //here first calculate hash of new pass word and then check that pass !== newpassword
+            if(userInfo.password !== newpassword){
+                userInfo.password = newpassword;
+                // console.log('new taken password:' + userInfo.password);
+                // console.log('userinfo after making change' + userInfo);
+                //now make this changes to db now
+                changes = await updateUser(userInfo);
+                // console.log('came back in update password');
+                if(changes.status === true){
+                    return {status: true,  msg: "Password change was successfull!!!" };
+                }
+                else{
+                    return {status: false,  msg: "Password change was unsuccessfull!!!" };
+                }
+
             }
-            return false;
-        } catch (e) {
-            throw e;
+            else{
+                console.log('came in else of if...');
+                return {status: false,  msg: "Old Password and new password cannot be same!!!" };
+            }
+                
         }
-    } 
+        else{
+            // console.log('came in else of second if...');
+            return {status: false,  msg: "Old Password and new password cannot be same!!!" };
+        }
+    
 }
 
 module.exports = {
@@ -194,6 +213,6 @@ module.exports = {
     findExistingUser,
     updateUser,
     removeUser,
-    checkPassword,
-    checkstatus
+    updatePassword,
+    checkstatus 
 };
