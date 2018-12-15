@@ -53,9 +53,9 @@ li a:hover {
   height: 500px;
   width :380px;
   border-top: 1mm black solid;
-  border-left: 1mm blue solid;
-  border-bottom: 1mm green solid;
-  border-right: 1mm yellow solid;
+  border-left: 1mm black solid;
+  border-bottom: 1mm black solid;
+  border-right: 1mm black solid;
 }
 
 .input{
