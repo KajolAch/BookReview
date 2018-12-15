@@ -59,8 +59,8 @@ li a:hover {
 }
 
 .input{
-  width :770px;
-  height: 80px;
+  width :870px;
+  height: 70px;
   /* overflow-y: scroll; */
 }
 
@@ -92,6 +92,9 @@ li a:hover {
   background-repeat:no-repeat;
 
   background-size:cover;
+}
+.f-r{
+  float:right;
 }
 
 /* if have time to add csss */
