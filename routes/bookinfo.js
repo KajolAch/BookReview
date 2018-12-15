@@ -13,15 +13,18 @@ router.post("/", async(req,res) =>{
     try{    
         let user=await users.getUser(req.cookies.AuthCookie);      
         console.log(user);           
-        const insertInfo = await destCollection.getBooksByID(bookId);
+        const insertInfo = await bookData.getBooksByID(bookId);
         console.log(insertInfo);
         if(insertInfo){
             console.log("book exists");
-            await bookData.addComments();        }    
+            await bookData.addReviews(user._id,user.username,bookId,review);        }    
         else{
-        const reviewCreated = await bookData.addBookReview(bookId,review,rating,user._id,user.username);
+            console.log("book DOESNOT exists");
+            const addedBook=await bookData.addBook(bookId,rating);  
+            
+            const addedReview=await bookData.addReviews(user._id,user.username,bookId,review); 
         }
-        res.render("pages/bookinfo");//change
+        //res.render("pages/bookinfo");//change
     }catch(e){
         error_message = "Please dont leave empty blank";
     }
