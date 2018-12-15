@@ -81,6 +81,7 @@ li a:hover {
 
 /* search part */
 .grid {
+  text-align: justify;
   display: grid;
  /* define the number of grid columns */
  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
@@ -98,12 +99,15 @@ li a:hover {
   background-repeat:no-repeat;
   background-size: cover;
 } */
-img{
+.toppic{
   height:190px;
   /* object-fit: cover; */
   width:100%;
 }
 
+ol{
+  display: inline;
+}
 
 .f-r{
   float:right;
