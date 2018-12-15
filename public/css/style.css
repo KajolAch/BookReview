@@ -1,5 +1,14 @@
+html{
+  font-family: "Times New Roman", times, serif;
+}
+
 body{
   margin:0px;
+}
+
+h1{
+  text-align: center;
+  width: 105%;
 }
 
 /*to focus the box in which we are typing*/
@@ -7,6 +16,13 @@ input[text=text] focus{
   background-color: lightblue;
 }
 
+button{
+    background-color: coral;
+    color: white;
+    text-align: centre;
+    font-size: 14px;
+    border: none;
+}
 
 ul {
   list-style-type: none;
@@ -16,23 +32,13 @@ ul {
   background-color: #333;
 }
 
-h1{
-  text-align: center;
-  width: 105%;
-}
-
-a link{
-  color: #007cc0;
-}
-
 li {
   float: left;
-  border: red;
 }
 
 li a {
   display: block;
-  color: #ffffff;
+  color: white;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
@@ -51,10 +57,6 @@ li a:hover {
 
 .title{
   border-bottom: 2mm black solid;
-  align-content: center;
-  width: 105%;
-
-
 }
 
 .booking{
@@ -73,17 +75,16 @@ li a:hover {
   height: 500px;
   width :380px;
   border-top: 1mm black solid;
-  border-left: 1mm blue solid;
-  border-bottom: 1mm green solid;
-  border-right: 1mm yellow solid;
+  border-left: 1mm black solid;
+  border-bottom: 1mm black solid;
+  border-right: 1mm black solid;
 }
 
 .input{
-  width :px;
+  width :870px;
   height: 70px;
   /* overflow-y: scroll; */
 }
-
 
 .comment{
     display:inline-block;
@@ -102,18 +103,46 @@ li a:hover {
 
 /* search part */
 .grid {
+  text-align: justify;
   display: grid;
  /* define the number of grid columns */
  grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
 }
 
 .background{
-  /* background-image:url('../css/bookimage.jpeg'); */
+  background-image:url('../css/bookimg1.jpeg');
 
   background-repeat:no-repeat;
-  background-size:cover;
 
+  background-size:cover;
 }
+/* .toppic{
+  background-image:url(../css/toppic.jpeg);
+  background-repeat:no-repeat;
+  background-size: cover;
+} */
+img{
+  height:140px;
+  /* object-fit: cover; */
+  width:100%; 
+}
+
+.logout{
+    margin-left: 10%;
+    background-color: coral;
+    color: black;
+    padding: 14px 25px;
+    text-emphasis-color: black;
+    text-align: center; 
+    text-decoration: none;
+    display: inline-block;
+  }
+
+
+ol{
+  display: inline;
+}
+
 .f-r{
   float:right;
 }
@@ -121,6 +150,6 @@ li a:hover {
 /* if have time to add csss */
 @media only screen and (max-width: 600px) {
     body {
-      background-color: #007cc0;
+      background-color: lightblue;
     }
   }

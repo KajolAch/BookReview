@@ -1,6 +1,5 @@
 const express = require("express");
 const router = express.Router();
-// call from user data
 const userData = require("../data/users");
 
 router.get("/", async(req,res) => {
@@ -18,14 +17,14 @@ router.post("/", async(req,res) =>{
     var email = req.body.email;
     var birth = req.body.date;
     var phone = req.body.phone;
-
+    const error_msg = 'Registration unsuccessful';
     //check status
 
     try{
                                                 
-        userCreated = await userData.createUser(username,password,name,birth,email,phone,gender);
-    }catch(e){
-        error_message = "Please dont leave empty blank";
+        userCreated = await userData.createUser(username, password, name, gender, birth, email, phone, );
+    }catch(err){
+        console.log(err);
     }
 
     if(userCreated.username === username){
@@ -33,7 +32,7 @@ router.post("/", async(req,res) =>{
         
     }
     else{
-        res.render('pages/register');
+        res.render('pages/register', {error_msg: error_msg});
     }
 });
 

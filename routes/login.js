@@ -3,13 +3,12 @@ const router = express.Router();
 const data = require('../data');
 const users = data.users;
 
-//posting to this route will attempt to log a user in with the credentials they provide in the login form
 router.get('/', async(req,res)=>{
-        res.render("pages/login");
+    res.render("pages/login");
 });
 
 router.post('/', async(req,res)=>{
-
+    
     const currentusername = req.body.username;
     const currentpassword = req.body.password;
     const error_msg = 'Invalid username or passsword';

@@ -10,14 +10,14 @@ async function getBooksByName(name) {
     return await destCollection.find({ name: name }).toArray();
 }
 
-async function getBooksByID(_id) {
+async function getBooksByID(bookId) {
     try {
-        if (!_id || typeof _id !== "string") {
+        if (!bookId || typeof bookId !== "string") {
             throw "The id type is not fit";
         }
         let destCollection = await books();
         return await destCollection.findOne({
-            _id: _id
+            Bookid: bookId
         });
     } catch (e) {
         throw e;
@@ -48,35 +48,32 @@ async function searchBooks(searchInfo) {
     }
 }
 
-async function addBookReview(bookId,review,rating,userId,userName) {// pass user
+async function addBook(bookId,rating) {// pass user
 
     const destCollection = await books();
-    console.log("in addBookReview");
-    console.log(userName);
-    console.log(userId);
-    if (typeof review !== "string") throw "You should write a review";
+    console.log("in addBook");
+    
+    //if (typeof review !== "string") throw "You should write a review";
     //const userDetails= await users.getUser(userId);
-    const newbookReview={
+    
+    const newBook={
         _id: uuid(),
         Bookid:bookId,
-        rating:rating,
-        review:review,
-        userId: userId,
-        userName: userName
- 
-        //userID should be added
+        rating:rating, //add avg rating
+        reviews:[]
     }
-        console.log(newbookReview);
+        console.log(newBook);
       // const userCollection = await users();
-        const insertInfo = await destCollection.insertOne(newbookReview);
+        const insertInfo = await destCollection.insertOne(newBook);
 
         if (insertInfo.insertedCount === 0)
             throw "this review is not added";
-
-        const thisUser = await this.getBooksByID(_id);
+    
+        const thisUser = await this.getBooksByID(bookId);
         console.log(thisUser.rating);
-        console.log(thisUser.review);
+        //console.log(thisUser.review);
         return thisUser;
+    
 }
 
 // async function loadAllBooks() {
@@ -87,25 +84,26 @@ async function addBookReview(bookId,review,rating,userId,userName) {// pass user
 //     return true;
 // }
 
-async function addComments(book, text) {
-    if (typeof text !== "string") throw "Your should write a comment";
-
-    const newComment = {
-        text: text
-    };
-
-    
+async function addReviews(userid, username,bookId,review) 
+{
+    // check if exists
     const destCollection = await books();
+    console.log("In AddReviews");
+    if (typeof review !== "string") 
+    throw "Your should write a review";
+    const bookInfo = await this.getBooksByID(bookId);
+    console.log(bookInfo);
+    const newReview = {
+        userid: userid,
+        user: username,
+        review:review
+    };   
 
-    let _id = book._id;
-    destCollection.update(
-        {_id: _id},
-        {$set:
-            {
-                comments: newComment
-            }
-        }
-    )
+    //bookInfo.reviews.push(newReview);
+    const updatedInfo = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { reviews : newReview } });
+
+    console.log(bookInfo);
+    console.log("after review push");
 }
 
 async function updateRating(book, score) {
@@ -122,8 +120,8 @@ async function updateRating(book, score) {
 module.exports = {
     getBooksByName,
     getBooksByID,
-    addComments,
-    addBookReview,
+    addReviews,
+    addBook,
     updateRating,
     // loadAllBooks,
     searchBooks

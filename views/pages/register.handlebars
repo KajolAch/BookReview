@@ -1,13 +1,6 @@
-<!DOCTYPE html>
-<html lang='en'>
-  <head>
-    <title>
-      <h1>Register</h1>
-    </title>
-  </head>
-  <body>
-    <article>
+<article>
       <div class='display'>
+        <p>{{error_msg}}</p>
         <h2 class ="title">User Registration</h2>
         <form action="/register" id="RegistrationForm" method="POST">
           <div class="form-group">
@@ -40,22 +33,21 @@
           <label for="inputPhone">Phone:</label><br>
           <input type = "number" id="inputPhone" name = "phone" placeholder="Enter Phone number"><br>
           <br>
-          <input type = "submit" class="btn btn-primary" value="Register">
+          <button type = "submit" value="submit">Register</button>
 
           </div>
         </form>
-    {{!-- Error handling --}}
-    {{#if hasErrors}}
-      <p class="error">
-        {{#each errors}}
-          {{this}}
+        {{!-- Error handling --}}
+        {{#if hasErrors}}
+          <p class="error">
+            {{#each errors}}
+              {{this}}
 
-        {{/each}}
-      </p>
-      {{/if}}
+            {{/each}}
+          </p>
+          {{/if}}
 
             <a href='/login'>Already have an account?</a>
-           </div>
-        </article>
-  </body>
-</html>
+      </div>
+</article>
+  

@@ -1,48 +1,30 @@
-<!DOCTYPE html>
-<html lang='en'>
-    <head>
-        <title>
-            <h1>Profile</h1>
-        </title>
-    </head>
-    <body>
-        <ul>
-                <li><a class="active" href="./search">Home</a></li>
-                <li><a href="./profile">Profile</a></li>
-                <li><a href="./logout">Logout</a></li>
-        </ul>
+<artilce>
+    <ul>
+        <li><a class="active" href="./search">Home</a></li>
+        <li><a href="./profile">Profile</a></li>
+        <li><a href="./logout">Logout</a></li>
+    </ul>
 
-        <div class='display'>
-            <h2 class='title'>Change Password</h2>
+    <div class='display'>
+        <h1 class='title'>Change Password</h1>
+        <form id = 'change-password-form' action= '/changepassword' method = 'POST'>
+        <br>
+        <label for = 'username'>Username</label><br>
+        <input type="text" id = 'username' placeholder = 'Enter your username' name = 'username' required><br>
+        <br>
+        <br>
+        {{!-- here put the attribute you want to check for changing password--}}
+        <label for = 'password'>Password</label><br>
+        <input type="password" id = 'password' placeholder = 'Enter your password' name = 'password' required><br>
+        <br>
+        <br>
 
-            <form id = 'change-password-form' action= '/changepassword' method = 'POST'>
-            <br>
-            <label for = 'username'>Username: </label>
-            <input type="text" id = 'username' placeholder = 'username' name = 'username' required><br>
-            <br>
-            <br>
-            <!-- {{!- here put the attribute you want to check for changing password-}} -->
-            <label for = 'password'>Password: </label>
-            <input type="password" id = 'password' placeholder = 'password' name = 'password' required><br>
-            <br>
-            <br>
+        <label for = 'newpassword'> New Password</label><br>
+        <input type="password" id = 'newpassword' placeholder = 'Enter your new password' name = 'newpassword' required><br>
+        <br>
+        <br>
 
-            <label for = 'newpassword'> New Password: </label>
-            <input type="password" id = 'newpassword' placeholder = 'newpassword' name = 'newpassword' required><br>
-            <br>
-            <br>
-
-            <button type="submit" value = 'submit'>Save Changes</button>
-            </form>
-        </div>
-    </body>
-</html>  
-   
-   
-   
-   
-   
-   
-            
-
-        
+        <button type="submit" value = 'submit'>Save Changes</button>
+        </form>
+    </div>
+</artilce>

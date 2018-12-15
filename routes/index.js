@@ -14,9 +14,10 @@ const constructorMethod = app => {
 
   app.get('/profile', function (req, res) {
     res.render("pages/profile");
-  })
+  });
+
   app.get('/bookinfo/:bookId', function (req, res) {
-    console.log(req.params);
+    //console.log(req.params);
     if(req.cookies.AuthCookie)
     {
       res.render("pages/bookinfo",
@@ -28,6 +29,19 @@ const constructorMethod = app => {
       res.redirect("/login");
     }
     })
+
+    app.get('/search', function (req, res) {
+      if(req.cookies.AuthCookie)
+      {
+        res.render("pages/search",
+          req.params
+      );
+      }
+      else
+      {
+        res.redirect("/login");
+      }
+      });
 
   app.get("/logout", function(req, res) {
     res.clearCookie('AuthCookie');
