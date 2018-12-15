@@ -1,40 +1,54 @@
-        <div class="container">
-	 <ul>
-            <li><a class="active" href="../search">Home</a></li>
-            <li><a href="../profile">Profile</a></li>
-            <li><a href="../logout">Logout</a></li>
-        </ul>
+<!DOCTYPE html>
+<html lang = 'en'>
+    <head>
+        <title>
+            <h1>
+                Book Info 
+            </h1>
+        </title>
+    </head>
+    <body>
+        <article>
+	        <ul>
+                <li><a class="active" href="../search">Home</a></li>
+                <li><a href="../profile">Profile</a></li>
+                <li><a href="../logout">Logout</a></li>
+            </ul>
 
-<div class='bookinfo'>
-    
- <h1>Book Info</h1>
-    <div class = 'bookname'>
-       
-    </div>
-<script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
-    <script type="text/javascript">
-      google.books.load();
-      function initialize() {
-        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
-        
-        viewer.load('{{bookId}}');
-      //  books.volume.get('{{bookId}}')
-      }
-      google.books.setOnLoadCallback(initialize);
-    </script>
-     
-    <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
-    
-   <div class = 'comment'>
-        <div class = 'comment_dashboard'>
-            <form id="BookInfoForm" method="POST" action="/bookinfo">
-                <textarea class='input' name="review" placeholder='Add Review'></textarea><br>
-                <input type="number" name="rating" placeholder="Rating out of 5">
-                <input type="hidden" value={{bookId}} name="bookId">
-                 <button class = 'submit' type = 'submit'>Add</button>
-            </form>
-           
-        </div>
-    </div> 
-</div>
+            <div class='display'>
 
+                <h2 class='title'>Search Result：{{book.name}} +{{book.rating}}</h2>
+
+                <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+                <script type="text/javascript">
+                    google.books.load();
+                    function initialize() {
+                        var viewer = new google.books.DefaultViewer(document.getElementById('viewerCanvas'));
+                        viewer.load('{{bookId}}');
+                    //  books.volume.get('{{bookId}}')
+                    }
+                    google.books.setOnLoadCallback(initialize);
+                </script>
+
+                <div class='booking' id="viewerCanvas">
+                    {{!-- display the result of api --}}
+                </div>
+
+                <div class='bookreview'>
+                    <li class='commentdisplay' id='commentdisplay'></li>
+                </div>
+
+
+                <div class = 'comment'>
+                    <form id="BookInfoForm" method="POST" action="/bookinfo" onsubmit="return showcomment()">
+                        <textarea class='input' name="review" placeholder='Add Review'></textarea><br>
+                        <input type="number" name="rating" placeholder="Rating out of 5">
+                        <input type="hidden" value={{bookId}} name="bookId">
+                        <input class="f-r" value = 'Submit' type = 'submit'>
+                    </form>
+                </div>
+            </div>
+        </article>
+
+    </body>
+</html>

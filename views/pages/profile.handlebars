@@ -1,12 +1,19 @@
-   <ul>
+<!DOCTYPE html>
+<html lang='en'>
+    <head>
+        <title>
+            <h1>Profile</h1>
+        </title>
+    </head>
+    <body>
+        <ul>
                 <li><a class="active" href="./search">Home</a></li>
                 <li><a href="./profile">Profile</a></li>
                 <li><a href="./logout">Logout</a></li>
-            </ul>
-
+        </ul>
 
         <div class='display'>
-            <h1 class='title'>Change Password</h1>
+            <h2 class='title'>Change Password</h2>
 
             <form id = 'change-password-form' action= '/changepassword' method = 'POST'>
             <br>
@@ -14,7 +21,7 @@
             <input type="text" id = 'username' placeholder = 'username' name = 'username' required><br>
             <br>
             <br>
-            <!-- {{!-- here put the attribute you want to check for changing password--}} -->
+            <!-- {{!- here put the attribute you want to check for changing password-}} -->
             <label for = 'password'>Password: </label>
             <input type="password" id = 'password' placeholder = 'password' name = 'password' required><br>
             <br>
@@ -28,3 +35,14 @@
             <button type="submit" value = 'submit'>Save Changes</button>
             </form>
         </div>
+    </body>
+</html>  
+   
+   
+   
+   
+   
+   
+            
+
+        
