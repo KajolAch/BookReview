@@ -3,16 +3,13 @@ const loginRoutes = require("./login");
 const bookinfoRoutes = require("./bookinfo");
 const searchRoutes = require("./search");
 const bookData = require("../data/books");
-//const changepasswordRoutes = require("./changepassword");
-
-
+const  profileRoutes=require("./profile");
 const constructorMethod = app => {
   app.use("/register", registerRoutes);
   app.use("/login", loginRoutes);
   app.use("/bookinfo/:bookId", bookinfoRoutes);
   app.use("/search", searchRoutes);
-  //app.use("/changepassword", changepasswordRoutes);
-
+  app.use("/profile",profileRoutes);
   app.get('/profile', function (req, res) {
     res.render("pages/profile");
   });

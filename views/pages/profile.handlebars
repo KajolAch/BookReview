@@ -7,8 +7,10 @@
 
     <div class='display'>
         <h1 class='title'>Change Password</h1>
-        <form id = 'change-password-form' action= '/changepassword' method = 'POST'>
+        <form id = 'change-password-form' action='/profile' method = 'POST'>
         <br>
+         <p class="error">{{error_msg}}</p>
+        <p >{{success_msg}}</p>
         <label for = 'username'>Username</label><br>
         <input type="text" id = 'username' placeholder = 'Enter your username' name = 'username' required><br>
         <br>

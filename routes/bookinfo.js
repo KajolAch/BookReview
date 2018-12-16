@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
     var rating = xss(req.body.rating);
     let reviews = [];
     try {
-        let user = await users.getUser(xss(req.cookies.AuthCookie));
+        let user = await users.getUser(req.cookies.AuthCookie);
         //console.log(user);
         const insertInfo = await bookData.getBooksByID(bookId);
        // console.log(insertInfo);

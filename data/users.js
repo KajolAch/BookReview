@@ -4,35 +4,36 @@ const users = mongoCollections.users;
 const bcrypt = require("bcrypt");
 const saltRounds = 16;
 
-const createUser = async function createUser(username, password, name,birth, email,phone,gender) {
-    
+const createUser = async function createUser(username, password, name, birth, email, phone, gender) {
+
     if (typeof username !== "string") throw "Provided username not a string";
     if (typeof password !== "string") throw "Provided password not a string";
     if (typeof name !== "string") throw "Provided name is not a string";
-    
 
-    // let hash = await bcrypt.hash(password, saltRounds);
-    //console.log(hash);
+
+    let hash = await bcrypt.hash(password, saltRounds);
+    console.log("New USer created");
+    console.log(hash);
     try {
         let ID = uuid();
         let newInfo = {
             _id: ID,
             username: username,
-            password: password, //hash
+            password: hash, //hash
             name: name,
             gender: gender,
             birth: birth,
             email: email,
             phone: phone,
         };
-       // console.log(newInfo);
+        // console.log(newInfo);
         const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newInfo);
 
-        if (insertInfo.insertedCount === 0){
+        if (insertInfo.insertedCount === 0) {
             throw "this user is not added";
         }
-           
+
         const thisUser = await this.getUser(ID);
         return thisUser;
     }
@@ -44,7 +45,7 @@ const createUser = async function createUser(username, password, name,birth, ema
 }
 
 const getAllUsers = async function getAllUsers() {
-    try {   
+    try {
         const userCollection = await users();
         const allUsers = await userCollection.find({}).toArray();
         return allUsers;
@@ -57,15 +58,15 @@ const getAllUsers = async function getAllUsers() {
 
 const getUser = async function getUser(id) {
 
-    if (!id){
+    if (!id) {
         throw "userid not recieved";
     }
-        
+
     try {
         const userCollection = await users();
         const find_user = await userCollection.findOne({ _id: id });
 
-        if (find_user === null){
+        if (find_user === null) {
             throw "User not found";
         }
         return find_user;
@@ -79,13 +80,13 @@ const getUser = async function getUser(id) {
 //finding user with its provided username 
 const findExistingUser = async function findExistingUser(username) {
 
-    if (!username || username === null){
+    if (!username || username === null) {
         throw "username not recieved";
     }
     try {
         const userCollection = await users();
-        const userInfoWeNeeded = await userCollection.findOne({ username : username });
-        
+        const userInfoWeNeeded = await userCollection.findOne({ username: username });
+
         // if( userInfoWeNeeded !== null){
         //     return userInfoWeNeeded;
         // }
@@ -93,102 +94,112 @@ const findExistingUser = async function findExistingUser(username) {
         // else{
         //     return {msg: "Provided username does not exists! Please reenter username or register first"};
         // }
-        
-    }    
+
+    }
     catch (err) {
         console.log(err);
     }
 }
 
-const checkstatus = async function checkstatus(username, password){
+const checkstatus = async function checkstatus(username, password) {
 
     //username to be checked.....in getexisting user
-    try{
-    userInfo = await findExistingUser(username);
-    if(userInfo){
-    if(username === userInfo.username && password === userInfo.password){
-        return {status:true,userid:userInfo._id};
-    }
-    else{
-        return {status:false, msg:"Invalid username or password"};
-    }
-    }
-    else{
-        return {status:false, msg:"Povide correct username or password"};   
-    }
-    }catch(err){
+   // let hash = await bcrypt.hash(password, saltRounds);
+    try {
+        userInfo = await findExistingUser(username);
+        if (userInfo) {
+            const isMatch = await bcrypt.compare(password, userInfo.password);
+            if (username === userInfo.username && isMatch) {
+                return { status: true, userid: userInfo._id };
+            }
+            else {
+                return { status: false, msg: "Invalid username or password" };
+            }
+        }
+        else {
+            return { status: false, msg: "Povide correct username or password" };
+        }
+    } catch (err) {
         console.log(err);
     }
 
-} 
+}
 
 const updateUser = async function updateUser(userInfo) {
 
-    if(!userInfo) throw 'userInfo not recieved';
-    try{
-    var userCollection = await users();
-    const tobeupdatedUser = {
-        _id: userInfo._id,
-        username: userInfo.username,
-        password: userInfo.password,
-        name: userInfo.name,
-        gender: userInfo.gender,
-        birth: userInfo.birth,
-        email: userInfo.email,
-        phone: userInfo.phone
-    };
-    console.log('going to update in db');
-    const updatedUserInfo = await userCollection.replaceOne({username: userInfo.username}, tobeupdatedUser );
-    if(updatedUserInfo.modifiedCount === 0){
-        throw 'to be updated recipe not updated properly in the database';
-    }
-    else{ 
-        console.log('came in else of updateuser');
-        return {status: true};
-    }
-    }catch(err){
+    if (!userInfo) throw 'userInfo not recieved';
+    try {
+        //let hash = await bcrypt.hash(userInfo.password, saltRounds);
+        var userCollection = await users();
+        const tobeupdatedUser = {
+            _id: userInfo._id,
+            username: userInfo.username,
+            password: userInfo.password,
+            name: userInfo.name,
+            gender: userInfo.gender,
+            birth: userInfo.birth,
+            email: userInfo.email,
+            phone: userInfo.phone
+        };
+        console.log('going to update in db');
+        const updatedUserInfo = await userCollection.replaceOne({ username: userInfo.username }, tobeupdatedUser);
+        if (updatedUserInfo.modifiedCount === 0) {
+            throw 'to be updated recipe not updated properly in the database';
+        }
+        else {
+            console.log('came in else of updateuser');
+            return { status: true };
+        }
+    } catch (err) {
         console.log(err);
     }
 
 }
 
 async function updatePassword(username, password, newpassword) {
-    
-    
+
+
     if (!username) throw "username not recieved";
     if (!password) throw "password not recieved";
-    if (!name) throw "name not recieved";
+    if (!newpassword) throw "new password not recieved";
     //let hash = await bcrypt.hash(password, saltRounds);
-    //console.log(hash);
+    let newHash = await bcrypt.hash(newpassword, saltRounds);
+    console.log(password);
+   // console.log(hash);
     try {
         userInfo = await findExistingUser(username);
+        console.log(userInfo.password);
+        if (userInfo) {
+            const isMatch = await bcrypt.compare(password, userInfo.password);
+            if (username === userInfo.username && isMatch) {
+                //here first calculate hash of new pass word and then check that pass !== newpassword
+                if (userInfo.password !== newHash) {
+                    userInfo.password = newHash;
+                    //now make this changes to db now
+                    changes = await updateUser(userInfo);
+                    if (changes.status === true) {
+                        return { status: true, msg: "Password change was successfull!!!" };
+                    }
+                    else {
+                        return { status: false, msg: "Password change was unsuccessfull!!!" };
+                    }
 
-        if(username === userInfo.username && password === userInfo.password){
-            ;
-            //here first calculate hash of new pass word and then check that pass !== newpassword
-            if(userInfo.password !== newpassword){
-                userInfo.password = newpassword;
-                //now make this changes to db now
-                changes = await updateUser(userInfo);
-                if(changes.status === true){
-                    return {status: true,  msg: "Password change was successfull!!!" };
                 }
-                else{
-                    return {status: false,  msg: "Password change was unsuccessfull!!!" };
+                else {
+                    console.log('came in else of if...');
+                    return { status: false, msg: "Old Password and new password cannot be same!!!" };
                 }
 
             }
-            else{
-                console.log('came in else of if...');
-                return {status: false,  msg: "Old Password and new password cannot be same!!!" };
+            else {
+                // console.log('came in else of second if...');
+                return { status: false, msg: "Old Password and new password cannot be same!!!" };
             }
-                
         }
-        else{
-            // console.log('came in else of second if...');
-            return {status: false,  msg: "Old Password and new password cannot be same!!!" };
+        else {
+            return { status: false, msg: "Password change was unsuccessfull!" };
         }
-    }catch(err){
+    } catch (err) {
         console.log(err);
     }
 }
@@ -200,5 +211,5 @@ module.exports = {
     findExistingUser,
     updateUser,
     updatePassword,
-    checkstatus 
+    checkstatus
 };

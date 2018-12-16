@@ -22,7 +22,10 @@ router.post('/', async(req,res)=>{
     
     const validatedData = await users.checkstatus(currentusername, currentpassword);
     if(validatedData.status===true){
-        res.cookie('AuthCookie', {userId: validatedData.userId}); 
+      
+        res.cookie('AuthCookie', validatedData.userid, { maxAge: 3600000 }); 
+       
+
         res.redirect('/search');
     }
     else if(validatedData.status === false){
