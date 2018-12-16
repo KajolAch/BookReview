@@ -116,16 +116,18 @@ li a:hover {
 
   background-size:cover;
 }
-/* .toppic{
-  background-image:url(../css/toppic.jpeg);
-  background-repeat:no-repeat;
-  background-size: cover;
-} */
-img{
-  height:140px;
+
+.topicc{
+  height:190px;
   /* object-fit: cover; */
+  width:100%;
+} 
+
+/* img{
+  height:140px;
+  /* object-fit: cover; 
   width:100%; 
-}
+} */
 
 .logout{
     margin-left: 10%;
