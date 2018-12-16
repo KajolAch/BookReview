@@ -80,10 +80,28 @@ li a:hover {
   border-right: 1mm black solid;
 }
 
+.linkclass{
+  color: darkblue;
+}
+
+.linkclasses{
+  color: black;
+}
+
+
 .input{
   width :870px;
   height: 70px;
   /* overflow-y: scroll; */
+}
+
+/* .moredetails{
+     color: darkblue;
+} */
+
+.buttonclass{
+  background-color: lightblue;
+
 }
 
 .comment{
@@ -131,10 +149,10 @@ li a:hover {
 
 .logout{
     margin-left: 10%;
-    background-color: coral;
-    color: black;
+    background-color: lightblue;
+    color: white;
     padding: 14px 25px;
-    text-emphasis-color: black;
+    text-emphasis-color: white;
     text-align: center; 
     text-decoration: none;
     display: inline-block;

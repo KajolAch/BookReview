@@ -27,12 +27,14 @@
                       for(i=0;i<response.items.length;i++){
                           console.log(response.items[i].volumeInfo.title);
                           
-                         title=$('<h5 id="title">'+response.items[i].volumeInfo.title + '</h5>');
-                         author=$('<h5 id="authors">'+response.items[i].volumeInfo.authors + '</h5>');
+                         title=$('<h3 id="title">'+response.items[i].volumeInfo.title + '</h3>');
+                         author=$('<h3 id="authors">'+response.items[i].volumeInfo.authors + '</h3>');
                          if(response.items[i].volumeInfo.hasOwnProperty('imageLinks')){
-                         img=$('<img src='+response.items[i].volumeInfo.imageLinks.smallThumbnail +'></img><br>');
+                         img=$('<img src='+response.items[i].volumeInfo.imageLinks.smallThumbnail +' alt= "bookcovers"></img><br>');
                           }
-                         link=$('<a href="/bookinfo/'+response.items[i].id +'">More Details</a>')
+                          
+                         link=$('<a href="/bookinfo/'+response.items[i].id +' class="linkclass">More Details</a>')
+                         
                            // let listItem=title;
                          //$("#BookList").append(listItem);
                          title.appendTo("#BookList");
