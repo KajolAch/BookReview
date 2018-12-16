@@ -22,7 +22,7 @@ router.post("/", async(req,res) =>{
 
     try{
                                                 
-        userCreated = await userData.createUser(username, password, name, gender, birth, email, phone, );
+        userCreated = await userData.createUser(username, password, name, gender, birth, email, phone);
     }catch(err){
         console.log(err);
     }

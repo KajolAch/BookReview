@@ -2,15 +2,16 @@ const registerRoutes = require("./register");
 const loginRoutes = require("./login");
 const bookinfoRoutes = require("./bookinfo");
 const  searchRoutes = require("./search");
-const changepasswordRoutes = require("./changepassword");
+const bookData = require("../data/books");
+//const changepasswordRoutes = require("./changepassword");
 
 
 const constructorMethod = app => {
   app.use("/register",registerRoutes);
   app.use("/login", loginRoutes);
-  app.use("/bookinfo", bookinfoRoutes);
+  app.use("/bookinfo/:bookId", bookinfoRoutes);
   app.use("/search", searchRoutes);
-  app.use("/changepassword", changepasswordRoutes);
+  //app.use("/changepassword", changepasswordRoutes);
 
   app.get('/profile', function (req, res) {
     res.render("pages/profile");

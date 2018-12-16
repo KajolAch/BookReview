@@ -18,7 +18,7 @@ const createUser = async function createUser(username, password, name,birth, ema
         let newInfo = {
             _id: ID,
             username: username,
-            password: password,
+            password: password, //hash
             name: name,
             gender: gender,
             birth: birth,
