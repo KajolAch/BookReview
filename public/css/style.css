@@ -1,7 +1,31 @@
+html{
+  font-family: "Times New Roman", times, serif;
+}
+
 body{
   margin:0px;
 }
 
+h1{
+  text-align: center;
+  width: 105%;
+}
+
+/*to focus the box in which we are typing*/
+input[text=text] focus{
+  background-color: lightblue;
+}
+
+button{
+    background-color: coral;
+    color: white;
+    text-align: centre;
+    font-size: 14px;
+    border: none;
+}
+.error{
+  color: red
+}
 ul {
   list-style-type: none;
   margin: 0;
@@ -42,34 +66,55 @@ li a:hover {
   height: 400px;
   width: 300px;
   border-top: 1mm black solid;
-  border-left: 1mm blue solid;
-  border-bottom: 1mm green solid;
-  border-right: 1mm yellow solid;
+  border-left: 1mm black solid;
+  border-bottom: 1mm black solid;
+  border-right: 1mm black solid;
 }
 
 .bookreview{
+  overflow-y:auto;
   margin-left:200px;
   float:left;
-  height: 500px;
-  width :380px;
+  height: 300px;
+  width :280px;
   border-top: 1mm black solid;
   border-left: 1mm black solid;
   border-bottom: 1mm black solid;
   border-right: 1mm black solid;
 }
 
-.input{
-  width :870px;
+.linkclass{
+  color: darkblue;
+}
+
+.linkclasses{
+  color: black;
+}
+
+
+.textarea_input{
+  width :280px;
   height: 70px;
   /* overflow-y: scroll; */
 }
 
+/* .moredetails{
+     color: darkblue;
+} */
+
+.buttonclass{
+  background-color: lightblue;
+
+}
+
 .comment{
-    display:inline-block;
-    position: relative;
-    border: 1mm black solid;
-    width: 878px;
-    height: 100px;
+
+  margin-left:200px;
+  display:inline-block;
+  /* position: relative; */
+
+  width: 300px;
+  height: 100px;
 }
 
 /* register part */
@@ -80,13 +125,6 @@ li a:hover {
 }
 
 /* search part */
-.grid {
-  text-align: justify;
-  display: grid;
- /* define the number of grid columns */
- grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-}
-
 .background{
   background-image:url('../css/bookimg1.jpeg');
 
@@ -94,23 +132,50 @@ li a:hover {
 
   background-size:cover;
 }
-/* .toppic{
-  background-image:url(../css/toppic.jpeg);
-  background-repeat:no-repeat;
-  background-size: cover;
-} */
-.toppic{
+
+.topicc{
   height:190px;
   /* object-fit: cover; */
   width:100%;
 }
+
+/* img{
+  height:140px;
+  /* object-fit: cover;
+  width:100%;
+} */
+
+.logout{
+    margin-left: 10%;
+    background-color: lightblue;
+    color: white;
+    padding: 14px 25px;
+    text-emphasis-color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+  }
+
 
 ol{
   display: inline;
 }
 
 .f-r{
+  margin-right:20px;
   float:right;
+}
+
+.review{
+  margin-left:30px;
+}
+
+footer{
+  font-size:20px;
+  text-align: center ;
+  color: black;
+  bottom: 0;
+  width: 100%;
 }
 
 /* if have time to add csss */

@@ -4,34 +4,36 @@ const users = mongoCollections.users;
 const bcrypt = require("bcrypt");
 const saltRounds = 16;
 
-
 const createUser = async function createUser(username, password, name,birth, email,phone,gender) {
-   // console.log(password);
-    if (typeof password !== "string") throw "please provide a password!";
-    let hash = await bcrypt.hash(password, saltRounds);
-    console.log(hash);
+
+    if (typeof username !== "string") throw "Provided username not a string";
+    if (typeof password !== "string") throw "Provided password not a string";
+    if (typeof name !== "string") throw "Provided name is not a string";
+
+
+    // let hash = await bcrypt.hash(password, saltRounds);
+    //console.log(hash);
     try {
         let ID = uuid();
         let newInfo = {
             _id: ID,
             username: username,
-            password: hash,
+            password: password, //hash
             name: name,
             gender: gender,
             birth: birth,
             email: email,
             phone: phone,
         };
-        console.log(newInfo);
-       const userCollection = await users();
+       // console.log(newInfo);
+        const userCollection = await users();
         const insertInfo = await userCollection.insertOne(newInfo);
 
-        if (insertInfo.insertedCount === 0)
+        if (insertInfo.insertedCount === 0){
             throw "this user is not added";
+        }
 
         const thisUser = await this.getUser(ID);
-        console.log(thisUser.name);
-        console.log(thisUser.password);
         return thisUser;
     }
 
@@ -40,14 +42,13 @@ const createUser = async function createUser(username, password, name,birth, ema
     }
 
 }
+
 const getAllUsers = async function getAllUsers() {
-    try {   
+    try {
         const userCollection = await users();
         const allUsers = await userCollection.find({}).toArray();
-        console.log(allUsers);
         return allUsers;
     }
-
     catch (err) {
         console.log(err);
     }
@@ -56,117 +57,134 @@ const getAllUsers = async function getAllUsers() {
 
 const getUser = async function getUser(id) {
 
-    if (!id) throw "Please provide a userid";
+    if (!id){
+        throw "userid not recieved";
+    }
 
     try {
         const userCollection = await users();
         const find_user = await userCollection.findOne({ _id: id });
 
-        if (find_user === null)
-            throw "There is not have this user";
-
+        if (find_user === null){
+            throw "User not found";
+        }
         return find_user;
     }
-
     catch (err) {
         console.log(err);
     }
 
 }
 
-//finding user with its username provided
+//finding user with its provided username
 const findExistingUser = async function findExistingUser(username) {
-    console.log('username recieved is:' + username);
-    if (!username)
-        throw "Please provide a username";
+
+    if (!username || username === null){
+        throw "username not recieved";
+    }
     try {
-        console.log('came in try of find existing user');
         const userCollection = await users();
-        console.log('user collection contauins' + userCollection);
-        console.log('returning from usercollection');
         const userInfoWeNeeded = await userCollection.findOne({ username : username });
-        console.log('needed user info: ' + userInfoWeNeeded);
-        return userInfoWeNeeded;
-    }
-    catch (err) {
-        console.log(err);
-    }
-}
 
-
-
-const updateUser = async function updateUser(userId, input, bookname) {
-
-    if (!userId)
-        throw "Please provide a userid";
-
-    try {
-        const userCollection = await users();
-        const user_his = await userCollection.findOne({ _id: id });
-        var newHistory = {
-            input: input,
-            bookname: bookname
-        };
-
-        user_his.history.push(newHistory);
-        return await this.getUser(userId);
-    }
-
-    catch (err) {
-        console.log(err);
-    }
-
-}
-
-const removeUser = async function removeUser(id) {
-
-    if (!id)
-        throw "Please provide a userid";
-
-    try {
-
-        const userCollection = await users();
-        const deletionInfo = await userCollection.removeOne({ _id: id });
-
-        if (deletionInfo.deletedCount === 0)
-            throw `Could not delete the user with id of ${id}`;
-
-        return true;
-    }
-
-    catch (err) {
-        console.log(err);
-    }
-
-}
-
-const checkPassword = async function checkPassword(username, password) {
-    console.log("d0");
-    let hash = await bcrypt.hash(password, saltRounds);
-    console.log(hash);
-    console.log(username);
-    console.log(password);
-    try {
-        //var user = await getExistingUser(username);
-
-    } catch (error) {
-        console.log("error");
-        return false;
-    }
-    if (user) {
-        try {
-            var res = (user && await bcrypt.compare(password, user.password));
-            console.log(password);
-            console.log(user.name);
-            console.log(res);
-            if (res) {
-                return true;
-            }
-            return false;
-        } catch (e) {
-            throw e;
+        if( userInfoWeNeeded !== null){
+            return userInfoWeNeeded;
         }
-    } 
+        // else{
+        //     return {msg: "Provided username does not exists! Please reenter username or register first"};
+        // }
+
+    }
+    catch (err) {
+        console.log(err);
+    }
+}
+
+const checkstatus = async function checkstatus(username, password){
+
+    //username to be checked.....in getexisting user
+    try{
+    userInfo = await findExistingUser(username);
+    if(username === userInfo.username && password === userInfo.password){
+        return {status:true,userid:userInfo._id};
+    }
+    else{
+        return {status:false, msg:"Invalid username or password"};
+    }
+    }catch(err){
+        console.log(err);
+    }
+
+}
+
+const updateUser = async function updateUser(userInfo) {
+
+    if(!userInfo) throw 'userInfo not recieved';
+    try{
+    var userCollection = await users();
+    const tobeupdatedUser = {
+        _id: userInfo._id,
+        username: userInfo.username,
+        password: userInfo.password,
+        name: userInfo.name,
+        gender: userInfo.gender,
+        birth: userInfo.birth,
+        email: userInfo.email,
+        phone: userInfo.phone
+    };
+    console.log('going to update in db');
+    const updatedUserInfo = await userCollection.replaceOne({username: userInfo.username}, tobeupdatedUser );
+    if(updatedUserInfo.modifiedCount === 0){
+        throw 'to be updated recipe not updated properly in the database';
+    }
+    else{
+        console.log('came in else of updateuser');
+        return {status: true};
+    }
+    }catch(err){
+        console.log(err);
+    }
+
+}
+
+async function updatePassword(username, password, newpassword) {
+
+
+    if (!username) throw "username not recieved";
+    if (!password) throw "password not recieved";
+    if (!name) throw "name not recieved";
+    //let hash = await bcrypt.hash(password, saltRounds);
+    //console.log(hash);
+    try {
+        userInfo = await findExistingUser(username);
+
+        if(username === userInfo.username && password === userInfo.password){
+            ;
+            //here first calculate hash of new pass word and then check that pass !== newpassword
+            if(userInfo.password !== newpassword){
+                userInfo.password = newpassword;
+                //now make this changes to db now
+                changes = await updateUser(userInfo);
+                if(changes.status === true){
+                    return {status: true,  msg: "Password change was successfull!!!" };
+                }
+                else{
+                    return {status: false,  msg: "Password change was unsuccessfull!!!" };
+                }
+
+            }
+            else{
+                console.log('came in else of if...');
+                return {status: false,  msg: "Old Password and new password cannot be same!!!" };
+            }
+
+        }
+        else{
+            // console.log('came in else of second if...');
+            return {status: false,  msg: "Old Password and new password cannot be same!!!" };
+        }
+    }catch(err){
+        console.log(err);
+    }
 }
 
 module.exports = {
@@ -174,8 +192,7 @@ module.exports = {
     getAllUsers,
     getUser,
     findExistingUser,
-    //getExistingUser
     updateUser,
-    removeUser,
-    checkPassword
+    updatePassword,
+    checkstatus
 };

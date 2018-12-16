@@ -1,37 +1,40 @@
 const express = require("express");
 const router = express.Router();
 const userData = require("../data/users");
+const xss = require('xss');
+
 
 router.get("/", async(req,res) => {
     res.render("pages/register");
 });
 
 router.post("/", async(req,res) =>{
- 
-    console.log("In post register method");
-    console.log(req.body);
-    let RegisterData = req.body;
-    var username = RegisterData.username;
-    var password = RegisterData.password;
-    var name = RegisterData.fullname;
-    var gender = req.body.gender;
-    var email = req.body.email;
-    var birth = req.body.date;
-    var phone = req.body.phone;
+    
+    //console.log(req.body);
+    let RegisterData = xss(req.body);
+    var username = xss(req.body.username);
+    var password = xss(req.body.password);
+    var name = xss(req.body.fullname);
+    var gender = xss(req.body.gender);
+    var email = xss(req.body.email);
+    var birth = xss(req.body.date);
+    var phone = xss(req.body.phone);
     let errors = [];
-  if (!username) {
-    errors.push("No username provided!");
-    res.status(400);
-  }
-  if (!password) {
-    errors.push("No password provided!");
-    res.status(400);
-  }
-  if (!name) {
-    errors.push("No name provided!");
-    res.status(400);
-  }
-    let user=await userData.findExistingUser(username);
+    const error_msg = 'Registration unsuccessful';
+    //check status
+    if (!username) {
+        errors.push("No username provided!");
+        res.status(400);
+      }
+      if (!password) {
+        errors.push("No password provided!");
+        res.status(400);
+      }
+      if (!name) {
+        errors.push("No name provided!");
+        res.status(400);
+      }
+      let user=await userData.findExistingUser(username);
     if(user)
     {
      console.log("username matched");   
@@ -48,26 +51,26 @@ router.post("/", async(req,res) =>{
     });
     return;
   }
-    //check status
-    var error_message = "Account already exists.";
-    try{                                         
-        userCreated = await userData.createUser(username,password,name,birth,email,phone,gender);
-    }catch(e){
-        res.status(400).json({ error: e });
+
+    try{
+                                                
+        userCreated = await userData.createUser(username, password, name, gender, birth, email, phone);
+    }catch(err){
+        console.log(err);
     }
 
-    if(username === userCreated.username){
-        var data={
-            error:error_message
-        }
+    if(userCreated.username === username){
         res.cookie('AuthCookie', userCreated._id, { maxAge: 3600000 }); //set cookie for unique username
-        res.redirect("/search"); // redirect after db entry
-        // res.render("pages/search",{
-        //    userId: userCreated._id
-        // });
-    }else{
-        res.redirect("search");
+        res.redirect('/search');
+        
     }
-})
+    else{     
+        res.render('pages/register', {
+            errors: error_msg,
+            hasErrors: true
+        });
+    }
+});
+
 
 module.exports = router;
