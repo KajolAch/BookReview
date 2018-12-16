@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const data = require('../data');
 const users = data.users;
+const xss = require('xss');
+
 
 router.get('/', async(req,res)=>{
     res.render("pages/login");
@@ -9,8 +11,8 @@ router.get('/', async(req,res)=>{
 
 router.post('/', async(req,res)=>{
     
-    const currentusername = req.body.username;
-    const currentpassword = req.body.password;
+    const currentusername = xss(req.body.username);
+    const currentpassword = xss(req.body.password);
     const error_msg = 'Invalid username or passsword';
     if(!currentusername || typeof currentusername !== "string")
     {
@@ -20,7 +22,7 @@ router.post('/', async(req,res)=>{
     
     const validatedData = await users.checkstatus(currentusername, currentpassword);
     if(validatedData.status===true){
-        res.cookie('AuthCookie', {userId:validatedData.userId}); 
+        res.cookie('AuthCookie', {userId: validatedData.userId}); 
         res.redirect('/search');
     }
     else if(validatedData.status === false){

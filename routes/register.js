@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const userData = require("../data/users");
+const xss = require('xss');
+
 
 router.get("/", async(req,res) => {
     res.render("pages/register");
@@ -9,16 +11,29 @@ router.get("/", async(req,res) => {
 router.post("/", async(req,res) =>{
     
     //console.log(req.body);
-    let RegisterData = req.body;
-    var username = RegisterData.username;
-    var password = RegisterData.password;
-    var name = RegisterData.fullname;
-    var gender = req.body.gender;
-    var email = req.body.email;
-    var birth = req.body.date;
-    var phone = req.body.phone;
+    let RegisterData = xss(req.body);
+    var username = xss(req.body.username);
+    var password = xss(req.body.password);
+    var name = xss(req.body.fullname);
+    var gender = xss(req.body.gender);
+    var email = xss(req.body.email);
+    var birth = xss(req.body.date);
+    var phone = xss(req.body.phone);
     const error_msg = 'Registration unsuccessful';
     //check status
+    if (!username) {
+        errors.push("No username provided!");
+        res.status(400);
+      }
+      if (!password) {
+        errors.push("No password provided!");
+        res.status(400);
+      }
+      if (!name) {
+        errors.push("No name provided!");
+        res.status(400);
+      }
+      
 
     try{
                                                 
