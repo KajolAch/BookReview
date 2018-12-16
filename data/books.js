@@ -91,8 +91,7 @@ async function addReviews(userid, username,bookId,review)
     console.log("In AddReviews");
     if (typeof review !== "string") 
     throw "Your should write a review";
-    const bookInfo = await this.getBooksByID(bookId);
-    console.log(bookInfo);
+    
     const newReview = {
         userid: userid,
         user: username,
@@ -101,9 +100,11 @@ async function addReviews(userid, username,bookId,review)
 
     //bookInfo.reviews.push(newReview);
     const updatedInfo = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { reviews : newReview } });
-
+    const bookInfo = await this.getBooksByID(bookId);
     console.log(bookInfo);
     console.log("after review push");
+    console.log(bookInfo.reviews);
+    return bookInfo.reviews;
 }
 
 async function updateRating(book, score) {

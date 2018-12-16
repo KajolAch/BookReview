@@ -1,5 +1,5 @@
         <div class="container">
-	 <ul>
+	    <ul>
             <li><a class="active" href="../search">Home</a></li>
             <li><a href="../profile">Profile</a></li>
             <li><a href="../logout">Logout</a></li>
@@ -11,7 +11,7 @@
     <div class = 'bookname'>
        
     </div>
-<script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
+    <script type="text/javascript" src="https://www.google.com/books/jsapi.js"></script>
     <script type="text/javascript">
       google.books.load();
 
@@ -27,33 +27,27 @@
      
     <div id="viewerCanvas" style="width: 600px; height: 500px"></div>
     <div class='bookreview'>
-                <li class='attempts' id='attempts'></li>
-                <!-- add button(like), book rating, -->
+                {{#if hasReviews}}
+                <p class="review" id="myReview">
+                    {{#each reviews}}
+                    {{!-- <li> --}}
+                    {{this.user}}
+                    {{this.review}}
+                    {{!-- </li> --}}
+                    {{/each}}
+                </p>
+                {{/if}}
             </div>
    <div class = 'comment'>
         <div class = 'comment_dashboard'>
-            <form id="BookInfoForm" method="POST" action="/bookinfo" >
-                <textarea class='input' name="review" placeholder='Add Review'></textarea><br>
-                <input type="number" name="rating" placeholder="Rating out of 5">
+            <form id="BookInfoForm" method="POST" action="/bookinfo/pKtgDwAAQBAJ">
+                <textarea class='input' name="review" id="review" placeholder='Add Review'></textarea><br>
+                <input type="number" name="rating" id="rating" placeholder="Rating out of 5">
                 <input type="hidden" value={{bookId}} name="bookId">
                  <button class = 'submit' type = 'submit'>Add</button>
             </form>
-           {{!-- <script>   
-    function formSubmit(){
-    var comment = document.getElementById('comment_dashboard').value;
-
-    if(comment === undefined){
-        alert('you should enter text');
-
-    }else{
-        var li = document.createElement('li');
-        li.appendChild(document.createTextNode(comment));
-        var attempts = document.getElementById('attempts').appendChild(li);
-    }
-    return false;
-}
-               </script> --}}
         </div>
     </div> 
+
 </div>
 
