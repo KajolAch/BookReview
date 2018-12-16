@@ -20,13 +20,13 @@ router.post("/", async (req, res) => {
             console.log("book exists");
 
             const existingBook = await bookData.addReviews(user._id, user.username, bookId, review);
-
+            const updateRating = await bookData.addRating(user._id, user.username, bookId, rating);
         }
         else {
             console.log("book DOESNOT exists");
-            const addedBook = await bookData.addBook(bookId, rating);
-
+            const addedBook = await bookData.addBook(bookId);
             const addedReview = await bookData.addReviews(user._id, user.username, bookId, review);
+            const addedRating = await bookData.addRating(user._id, user.username, bookId, rating);
         }
         const newInfo = await bookData.getBooksByID(bookId);
         reviews=newInfo.reviews;

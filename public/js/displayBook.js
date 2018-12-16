@@ -21,7 +21,8 @@
                       var title='';
                       var author='';
                       var img='';
-                      
+                   // $("#BookList").trigger('reset');
+                   $("#BookList").empty();
                      $.get("https://www.googleapis.com/books/v1/volumes?q="+ BookName+"&filter=partial",function(response){
                         console.log(response);
                         for(i=0;i<response.items.length;i++){

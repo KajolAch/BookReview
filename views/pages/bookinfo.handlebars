@@ -7,7 +7,7 @@
 
 <div class='bookinfo'>
     
- <h1>Book Info</h1>
+ <h1>Book Preview</h1>
     <div class = 'bookname'>
        
     </div>
@@ -40,7 +40,7 @@
             </div>
    <div class = 'comment'>
         <div class = 'comment_dashboard'>
-            <form id="BookInfoForm" method="POST" action="/bookinfo/pKtgDwAAQBAJ">
+            <form id="BookInfoForm" method="POST" action="/bookinfo/{{bookId}}">
                 <textarea class='input' name="review" id="review" placeholder='Add Review'></textarea><br>
                 <input type="number" name="rating" id="rating" placeholder="Rating out of 5">
                 <input type="hidden" value={{bookId}} name="bookId">
