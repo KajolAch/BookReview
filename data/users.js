@@ -86,12 +86,13 @@ const findExistingUser = async function findExistingUser(username) {
         const userCollection = await users();
         const userInfoWeNeeded = await userCollection.findOne({ username : username });
         
-        if( userInfoWeNeeded !== null){
-            return userInfoWeNeeded;
-        }
-        else{
-            return {msg: "Provided username does not exists! Please reenter username or register first"};
-        }
+        // if( userInfoWeNeeded !== null){
+        //     return userInfoWeNeeded;
+        // }
+        return userInfoWeNeeded;
+        // else{
+        //     return {msg: "Provided username does not exists! Please reenter username or register first"};
+        // }
         
     }    
     catch (err) {
@@ -104,11 +105,16 @@ const checkstatus = async function checkstatus(username, password){
     //username to be checked.....in getexisting user
     try{
     userInfo = await findExistingUser(username);
+    if(userInfo){
     if(username === userInfo.username && password === userInfo.password){
         return {status:true,userid:userInfo._id};
     }
     else{
         return {status:false, msg:"Invalid username or password"};
+    }
+    }
+    else{
+        return {status:false, msg:"Povide correct username or password"};   
     }
     }catch(err){
         console.log(err);

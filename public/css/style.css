@@ -23,7 +23,9 @@ button{
     font-size: 14px;
     border: none;
 }
-
+.error{
+  color: red
+}
 ul {
   list-style-type: none;
   margin: 0;

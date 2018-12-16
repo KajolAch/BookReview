@@ -19,6 +19,7 @@ router.post("/", async(req,res) =>{
     var email = xss(req.body.email);
     var birth = xss(req.body.date);
     var phone = xss(req.body.phone);
+    let errors = [];
     const error_msg = 'Registration unsuccessful';
     //check status
     if (!username) {
@@ -33,7 +34,23 @@ router.post("/", async(req,res) =>{
         errors.push("No name provided!");
         res.status(400);
       }
-      
+      let user=await userData.findExistingUser(username);
+    if(user)
+    {
+     console.log("username matched");   
+     errors.push("Username already exists. Try another user name! ");
+     res.status(400);
+    }
+    else{
+        console.log("same username not found");
+    }
+  if (errors.length > 0) {
+    res.render("pages/register", {
+      errors: errors,
+      hasErrors: true
+    });
+    return;
+  }
 
     try{
                                                 
@@ -43,11 +60,15 @@ router.post("/", async(req,res) =>{
     }
 
     if(userCreated.username === username){
+        res.cookie('AuthCookie', userCreated._id, { maxAge: 3600000 }); //set cookie for unique username
         res.redirect('/search');
         
     }
-    else{
-        res.render('pages/register', {error_msg: error_msg});
+    else{     
+        res.render('pages/register', {
+            errors: error_msg,
+            hasErrors: true
+        });
     }
 });
 

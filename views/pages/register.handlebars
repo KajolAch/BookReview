@@ -1,6 +1,5 @@
 <article>
-      <div class='display'>
-        <p>{{error_msg}}</p>
+      <div class='display'>     
         <h2 class ="title">User Registration</h2>
         <form action="/register" id="RegistrationForm" method="POST">
           <div class="form-group">
@@ -46,7 +45,7 @@
             {{/each}}
           </p>
           {{/if}}
-
+          <p>{{error_msg}}</p>
             <a class = "linkclass" href='/login'>Already have an account?</a>
       </div>
 </article>

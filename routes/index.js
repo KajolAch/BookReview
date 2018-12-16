@@ -1,13 +1,13 @@
 const registerRoutes = require("./register");
 const loginRoutes = require("./login");
 const bookinfoRoutes = require("./bookinfo");
-const  searchRoutes = require("./search");
+const searchRoutes = require("./search");
 const bookData = require("../data/books");
 //const changepasswordRoutes = require("./changepassword");
 
 
 const constructorMethod = app => {
-  app.use("/register",registerRoutes);
+  app.use("/register", registerRoutes);
   app.use("/login", loginRoutes);
   app.use("/bookinfo/:bookId", bookinfoRoutes);
   app.use("/search", searchRoutes);
@@ -17,13 +17,53 @@ const constructorMethod = app => {
     res.render("pages/profile");
   });
 
-  app.get('/bookinfo/:bookId', function (req, res) {
+  app.get('/', function (req, res) {
+    res.redirect("/register");
+  })
+
+  app.get('/bookinfo/:bookId', async (req, res) => {
+    console.log(req.params.bookId);
+    let reviews = [];
+    if (req.cookies.AuthCookie) {
+      try {
+        const insertInfo = await bookData.getBooksByID(req.params.bookId);
+        if (insertInfo) {
+          console.log("book exists");
+          console.log(insertInfo.reviews);
+          //reviews.push(insertInfo.reviews);
+          reviews = insertInfo.reviews;
+
+        }
+        else {
+          console.log("book DOESNOT exists");
+        }
+      }
+      catch (e) {
+        error_message = "Please dont leave empty blank";
+      }
+      if (reviews.length > 0) {
+        res.render("pages/bookinfo",
+          {
+            bookId: req.params.bookId,
+            reviews: reviews,
+            hasReviews: true
+          }
+        );
+      }
+      else {
+        res.render("pages/bookinfo",
+          req.params);
+      }
+    }
+    else {
+      res.redirect("/login");
+    }
+  })
+  app.get('/search', function (req, res) {
     //console.log(req.params);
     if(req.cookies.AuthCookie)
     {
-      res.render("pages/bookinfo",
-        req.params
-    );
+      res.render("pages/search");
     }
     else
     {
@@ -31,27 +71,14 @@ const constructorMethod = app => {
     }
     })
 
-    app.get('/search', function (req, res) {
-      if(req.cookies.AuthCookie)
-      {
-        res.render("pages/search",
-          req.params
-      );
-      }
-      else
-      {
-        res.redirect("/login");
-      }
-      });
-
-  app.get("/logout", function(req, res) {
+  app.get("/logout", function (req, res) {
     res.clearCookie('AuthCookie');
-    res.render("pages/logout");  
+    res.render("pages/logout");
   });
 
- app.use("*", (req, res) => {
-  res.status(404).json({ error: "Not found" });
-});
+  app.use("*", (req, res) => {
+    res.status(404).json({ error: "Not found" });
+  });
 };
 
 module.exports = constructorMethod;
