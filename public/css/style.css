@@ -11,7 +11,7 @@ h1{
   width: 105%;
 }
 
-/*to focus the box in which we are typing*/
+/to focus the box in which we are typing/
 input[text=text] focus{
   background-color: lightblue;
 }
@@ -61,21 +61,22 @@ li a:hover {
   border-bottom: 2mm black solid;
 }
 
-.booking{
+.bookimg{
   float:left;
-  height: 400px;
-  width: 300px;
+  height: 500px;
+  width: 380px;
   border-top: 1mm black solid;
-  border-left: 1mm blue solid;
-  border-bottom: 1mm green solid;
-  border-right: 1mm yellow solid;
+  border-left: 1mm black solid;
+  border-bottom: 1mm black solid;
+  border-right: 1mm black solid;
 }
 
 .bookreview{
+  overflow-y:auto;
   margin-left:200px;
   float:left;
-  height: 500px;
-  width :380px;
+  height: 400px;
+  width :280px;
   border-top: 1mm black solid;
   border-left: 1mm black solid;
   border-bottom: 1mm black solid;
@@ -91,8 +92,8 @@ li a:hover {
 }
 
 
-.input{
-  width :870px;
+.textarea_input{
+  width :280px;
   height: 70px;
   /* overflow-y: scroll; */
 }
@@ -107,11 +108,13 @@ li a:hover {
 }
 
 .comment{
-    display:inline-block;
-    position: relative;
-    border: 1mm black solid;
-    width: 878px;
-    height: 100px;
+
+  margin-left:200px;
+  display:inline-block;
+  /* position: relative; */
+
+  width: 300px;
+  height: 100px;
 }
 
 /* register part */
@@ -122,13 +125,6 @@ li a:hover {
 }
 
 /* search part */
-.grid {
-  text-align: justify;
-  display: grid;
- /* define the number of grid columns */
- grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-}
-
 .background{
   background-image:url('../css/bookimg1.jpeg');
 
@@ -141,12 +137,12 @@ li a:hover {
   height:190px;
   /* object-fit: cover; */
   width:100%;
-} 
+}
 
 /* img{
   height:140px;
-  /* object-fit: cover; 
-  width:100%; 
+  /* object-fit: cover;
+  width:100%;
 } */
 
 .logout{
@@ -155,7 +151,7 @@ li a:hover {
     color: white;
     padding: 14px 25px;
     text-emphasis-color: white;
-    text-align: center; 
+    text-align: center;
     text-decoration: none;
     display: inline-block;
   }
@@ -166,16 +162,22 @@ ol{
 }
 
 .f-r{
+  margin-right:20px;
   float:right;
+  background-color: lightblue;
 }
 
-/* footer{
-    position: relative;
-    text-align: center ;
-    color: black;
-    bottom: 0;
-    width: 100%;
-} */
+.review{
+  margin-left:30px;
+}
+
+footer{
+  font-size:20px;
+  text-align: center ;
+  color: black;
+  bottom: 0;
+  width: 100%;
+}
 
 /* if have time to add csss */
 @media only screen and (max-width: 600px) {

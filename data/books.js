@@ -48,19 +48,20 @@ async function searchBooks(searchInfo) {
     }
 }
 
-async function addBook(bookId,rating) {// pass user
+async function addBook(bookId) {// pass user
 
     const destCollection = await books();
     console.log("in addBook");
-    
+    let avg=0;
     //if (typeof review !== "string") throw "You should write a review";
     //const userDetails= await users.getUser(userId);
-    
-    const newBook={
+    //  avgRating= calculateAvgRating(bookId);
+        const newBook={
         _id: uuid(),
         Bookid:bookId,
-        rating:rating, //add avg rating
-        reviews:[]
+        avgRating:avg, //add avg rating
+        reviews:[],
+        userRating:[]
     }
         console.log(newBook);
       // const userCollection = await users();
@@ -76,29 +77,20 @@ async function addBook(bookId,rating) {// pass user
     
 }
 
-// async function loadAllBooks() {
-//     for (var i = 0; i < bookList.length; i++) {
-//         addbook(bookList[i]);
 
-//     }
-//     return true;
-// }
-
-async function addReviews(userid, username,bookId,review) 
+async function addReviews(userid,username,bookId,review) 
 {
-    // check if exists
     const destCollection = await books();
+    
     console.log("In AddReviews");
     if (typeof review !== "string") 
     throw "Your should write a review";
-    
+    const book=await this.getBooksByID(bookId);
     const newReview = {
         userid: userid,
         user: username,
         review:review
-    };   
-
-    //bookInfo.reviews.push(newReview);
+    };
     const updatedInfo = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { reviews : newReview } });
     const bookInfo = await this.getBooksByID(bookId);
     console.log(bookInfo);
@@ -107,6 +99,63 @@ async function addReviews(userid, username,bookId,review)
     return bookInfo.reviews;
 }
 
+async function addRating(userid,username,bookId,rating) 
+{
+    const destCollection = await books();
+    console.log("In addRating");
+    if (typeof rating !== "string") 
+    throw "Your should enter a rating";
+
+    const book=await this.getBooksByID(bookId);
+    const newRating = {
+        userid: userid,
+        user: username,
+        rating: rating
+    };
+    if(book.userRating.length>0){
+        for(let i=0;i<book.userRating.length;i++){ //if no user present
+            if(book.userRating[i].user==username){
+                console.log("user has already rated");
+                return { status: false};
+            }
+            
+        } 
+            const updatedRating = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { userRating : newRating } });
+            //const avgRating=await destCollection.calculateAvgRating(bookId,updatedRating);  
+            
+    }
+    else{
+        const updatedRating = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { userRating : newRating } });
+        //const avgRating=await destCollection.calculateAvgRating(bookId,updatedRating);
+    }
+  
+    const bookInfo = await this.getBooksByID(bookId);
+    console.log(bookInfo);
+    console.log("after rating push");
+    console.log(bookInfo.userRating);
+    return {status: true};
+}
+async function calculateAvgRating(bookId,updatedRating){
+    const destCollection = await books();
+    console.log("in calculateAvgRating");
+    let sum=0;
+    let avgRating=0;
+    const book = await this.getBooksByID(bookId);
+    if(book.userRating.length>0){
+        for(let i=0;i<book.userRating.length;i++){
+            sum+=parseInt(book.userRating[i].rating);
+        }
+        avgRating=sum/book.userRating.length;
+        console.log(avgRating);
+    }
+    else{
+        avgRating=updatedRating.rating;
+        console.log(avgRating);
+    }
+    // let avgRating=sum/book.userRating.length;
+    const updatedAvgRating = await destCollection.updateOne({ Bookid: bookId }, { $set: { avgRating : avgRating } });
+    return updatedAvgRating;
+}
 async function updateRating(book, score) {
     const num = book.numOfRating;
     const beforeRate = book.rating;
@@ -122,7 +171,9 @@ module.exports = {
     getBooksByName,
     getBooksByID,
     addReviews,
+    calculateAvgRating,
     addBook,
+    addRating,
     updateRating,
     // loadAllBooks,
     searchBooks
