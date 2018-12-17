@@ -44,7 +44,7 @@
         <div class = 'comment_dashboard'>
             <form id="BookInfoForm" method="POST" action="/bookinfo/{{bookId}}">
                 <textarea class='input' name="review" id="review" placeholder='Add Review'></textarea><br>
-                <input type="number" name="rating" id="rating" placeholder="Rating out of 5">
+                <input type="number" name="rating" id="rating" placeholder="/5" min="0" max="5">
                 <input type="hidden" value={{bookId}} name="bookId">
                  <button class = 'submit' type = 'submit'>Add</button>
             </form>
