@@ -63,8 +63,8 @@ li a:hover {
 
 .bookimg{
   float:left;
-  height: 400px;
-  width: 300px;
+  height: 500px;
+  width: 380px;
   border-top: 1mm black solid;
   border-left: 1mm black solid;
   border-bottom: 1mm black solid;
@@ -75,7 +75,7 @@ li a:hover {
   overflow-y:auto;
   margin-left:200px;
   float:left;
-  height: 300px;
+  height: 400px;
   width :280px;
   border-top: 1mm black solid;
   border-left: 1mm black solid;
