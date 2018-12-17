@@ -11,7 +11,7 @@ h1{
   width: 105%;
 }
 
-/to focus the box in which we are typing/
+/* //to focus the box in which we are typing */
 input[text=text] focus{
   background-color: lightblue;
 }
