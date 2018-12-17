@@ -30,7 +30,7 @@ const constructorMethod = app => {
         console.log(insertInfo.reviews);
         //reviews.push(insertInfo.reviews);
         reviews=insertInfo.reviews;
-        
+        avgRating=insertInfo.avgRating;
         }        
     else{
         console.log("book DOESNOT exists"); 
@@ -44,6 +44,7 @@ const constructorMethod = app => {
         {
           bookId:req.params.bookId,
           reviews: reviews,
+          rating:avgRating,
           hasReviews: true
         }
     );

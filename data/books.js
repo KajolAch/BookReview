@@ -47,30 +47,19 @@ async function searchBooks(searchInfo) {
         throw e;
     }
 }
-async function calculateAvgRating(bookId){
-    const destCollection = await books();
-    console.log("in calculateAvgRating");
-    let sum=0;
-    const book = await this.getBooksByID(bookId);
-    for(let i=0;i<book.userRating.length;i++){
-        sum+=book.userRating.rating;
-    }
-    let avgRating=sum/book.userRating.length;
-    console.log(avgRating);
-        return avgRating;
-}
+
 async function addBook(bookId) {// pass user
 
     const destCollection = await books();
     console.log("in addBook");
-    
+    let avg=0;
     //if (typeof review !== "string") throw "You should write a review";
     //const userDetails= await users.getUser(userId);
-    avgRating= calculateAvgRating(bookId);
+    //  avgRating= calculateAvgRating(bookId);
         const newBook={
         _id: uuid(),
         Bookid:bookId,
-        avgRating:avgRating, //add avg rating
+        avgRating:avg, //add avg rating
         reviews:[],
         userRating:[]
     }
@@ -122,20 +111,50 @@ async function addRating(userid,username,bookId,rating)
         user: username,
         rating: rating
     };
-    for(let i=0;i<=book.userRating.length;i++){ //if no user present??
-        if(book.userRating[i].user==username){
-            console.log("user has already rated");
-        }
-        else{
-            const updatedRating = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { userRating : newRating } });
-        }
-    }   
+    if(book.userRating.length>0){
+        for(let i=0;i<book.userRating.length;i++){ //if no user present
+            if(book.userRating[i].user==username){
+                console.log("user has already rated");
+            }
+            else{
+                const updatedRating = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { userRating : newRating } });
+                //const avgRating=await destCollection.calculateAvgRating(bookId,updatedRating);
+                
+            }
+        }   
+
+    }
+    else{
+        const updatedRating = await destCollection.updateOne({ Bookid: bookId }, { $addToSet: { userRating : newRating } });
+        //const avgRating=await destCollection.calculateAvgRating(bookId,updatedRating);
+    }
   
     const bookInfo = await this.getBooksByID(bookId);
     console.log(bookInfo);
     console.log("after rating push");
     console.log(bookInfo.userRating);
     return bookInfo.userRating;
+}
+async function calculateAvgRating(bookId,updatedRating){
+    const destCollection = await books();
+    console.log("in calculateAvgRating");
+    let sum=0;
+    let avgRating=0;
+    const book = await this.getBooksByID(bookId);
+    if(book.userRating.length>0){
+        for(let i=0;i<book.userRating.length;i++){
+            sum+=parseInt(book.userRating[i].rating);
+        }
+        avgRating=sum/book.userRating.length;
+        console.log(avgRating);
+    }
+    else{
+        avgRating=updatedRating.rating;
+        console.log(avgRating);
+    }
+    // let avgRating=sum/book.userRating.length;
+    const updatedAvgRating = await destCollection.updateOne({ Bookid: bookId }, { $set: { avgRating : avgRating } });
+    return updatedAvgRating;
 }
 async function updateRating(book, score) {
     const num = book.numOfRating;

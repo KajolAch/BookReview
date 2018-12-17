@@ -21,19 +21,23 @@ router.post("/", async (req, res) => {
 
             const existingBook = await bookData.addReviews(user._id, user.username, bookId, review);
             const updateRating = await bookData.addRating(user._id, user.username, bookId, rating);
+            const addedavg = await bookData.calculateAvgRating( bookId, updateRating);
         }
         else {
             console.log("book DOESNOT exists");
             const addedBook = await bookData.addBook(bookId);
             const addedReview = await bookData.addReviews(user._id, user.username, bookId, review);
             const addedRating = await bookData.addRating(user._id, user.username, bookId, rating);
+            const addedavg = await bookData.calculateAvgRating( bookId, addedRating);
         }
         const newInfo = await bookData.getBooksByID(bookId);
         reviews=newInfo.reviews;
+        avgRating=newInfo.avgRating;
         res.render("pages/bookinfo",
         {
             bookId:bookId,
             reviews: reviews,
+            rating:avgRating,
             hasReviews: true
         })
         // if (reviews.length > 0) {
