@@ -168,7 +168,7 @@ async function updatePassword(username, password, newpassword) {
    // console.log(hash);
     try {
         userInfo = await findExistingUser(username);
-        console.log(userInfo.password);
+        //console.log(userInfo.password);
         if (userInfo) {
             const isMatch = await bcrypt.compare(password, userInfo.password);
             if (username === userInfo.username && isMatch) {
