@@ -12,8 +12,10 @@ Download this app:
 In the terminal: 
 #$(in the local file) npm install
 Run the app: 
+node ./tasks/seed.js
 #npm start 
-Then open the brower, go to localhost:3000
+Then open the brower, go to http://localhost:3000/login
+Credentials for the professor: For login-> username: Test password: Test123
 
 Register and Login: Firstly register yourself and then directly you login to our home page. Or if you are an existing user just click existing user and you will be directed to login page. Login and Register both take you to the home page.
 
@@ -23,4 +25,3 @@ Book Information Page: Here user can have a preview of book( its cover and tabl 
 
 Profile: User can change his/her password anytime using his old password.
 
-Credentials for the professor: For login-> username: Test password: Test123
